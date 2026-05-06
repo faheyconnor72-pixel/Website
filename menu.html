@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Order Online — Daniel's Mexican Restaurant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:    #b91c1c;
+      --orange: #ea580c;
+      --gold:   #d97706;
+      --cream:  #fdf6e3;
+      --dark:   #1c1207;
+      --muted:  #78716c;
+      --border: #e7e5e4;
+      --radius: 12px;
+      --green:  #15803d;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--dark); }
+
+    #scroll-bar {
+      position: fixed; top: 0; left: 0; height: 3px; z-index: 300;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      width: 0%; pointer-events: none; transition: width .1s linear;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+      background: rgba(28,18,7,0.96); backdrop-filter: blur(8px);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.2rem; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+    .nav-links a { color: #e7e5e4; text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-back { background: rgba(255,255,255,.08); color: #e7e5e4 !important; padding: .4rem 1rem; border-radius: 6px; border: 1px solid rgba(255,255,255,.15); }
+    .nav-back:hover { background: rgba(255,255,255,.15) !important; }
+
+    /* ── HERO ── */
+    .menu-hero {
+      min-height: 40vh; display: flex; align-items: flex-end;
+      padding: 7rem 2rem 3rem;
+      background: linear-gradient(to bottom, rgba(28,18,7,.55), rgba(28,18,7,.82)),
+        url('https://images.unsplash.com/photo-1546906067-0e3c85626d56?w=1600&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .menu-hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+    .menu-hero small { color: var(--gold); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: .5rem; }
+    .menu-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.75rem); font-weight: 900; color: #fff; line-height: 1.1; }
+    .menu-hero p { color: #d6d3d1; margin-top: .6rem; font-size: 1rem; }
+
+    /* ── FILTER BAR ── */
+    .filter-wrap {
+      position: sticky; top: 64px; z-index: 100;
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: .9rem 2rem; overflow-x: auto;
+    }
+    .filter-bar { display: flex; gap: .5rem; max-width: 1100px; margin: 0 auto; white-space: nowrap; }
+    .filter-btn {
+      padding: .45rem 1.1rem; border-radius: 999px;
+      border: 2px solid var(--border); background: #fff;
+      color: var(--muted); font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: all .18s; white-space: nowrap;
+    }
+    .filter-btn.active, .filter-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+    /* ── LAYOUT ── */
+    .menu-grid-wrap { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 6rem; }
+    .category-section { margin-bottom: 4rem; }
+
+    .category-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .category-emoji { font-size: 1.6rem; line-height: 1; }
+    .category-title {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900;
+      color: var(--dark);
+    }
+    .category-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* ── DISH GRID ── */
+    .dish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+
+    /* ── DISH CARD ── */
+    .dish-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s, border-color .22s;
+      position: relative;
+    }
+    .dish-card::before {
+      content: '';
+      display: block; height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      opacity: 0;
+      transition: opacity .22s;
+    }
+    .dish-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,.11);
+      border-color: #d6d3d1;
+    }
+    .dish-card:hover::before { opacity: 1; }
+
+    .dish-body {
+      padding: 1.1rem 1.25rem 1.2rem;
+      display: flex; flex-direction: column; flex: 1;
+    }
+
+    .dish-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: .5rem; margin-bottom: .5rem;
+    }
+    .dish-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700;
+      line-height: 1.25; color: var(--dark); flex: 1;
+    }
+    .dish-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; white-space: nowrap;
+      padding: .2rem .55rem; border-radius: 999px;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      color: #fff; flex-shrink: 0; margin-top: .15rem;
+    }
+
+    .dish-desc {
+      color: var(--muted); font-size: .825rem; line-height: 1.55;
+      flex: 1; margin-bottom: 1rem;
+    }
+
+    .dish-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: .8rem;
+      border-top: 1px solid var(--border);
+    }
+    .dish-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--dark);
+    }
+    .dish-price-cents {
+      font-size: .8rem; font-weight: 600; color: var(--muted);
+      vertical-align: super; font-family: 'Inter', sans-serif;
+    }
+    .dish-add {
+      font-size: .8rem; font-weight: 700; letter-spacing: .04em;
+      color: #fff; background: var(--red); border: none;
+      padding: .45rem 1rem; border-radius: 6px;
+      cursor: pointer; transition: background .15s, transform .12s;
+    }
+    .dish-add:hover { background: #991b1b; }
+    .dish-add:active { transform: scale(.95); }
+    .dish-add.added { background: var(--green); }
+
+    /* ── NAV TOGGLE ── */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: .5rem; flex-shrink: 0; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #e7e5e4; margin: 5px 0; border-radius: 2px; transition: .3s; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── CART FAB ── */
+    #cart-fab {
+      position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 150;
+      background: var(--dark); color: #fff;
+      border: none; border-radius: 999px;
+      padding: .8rem 1.5rem; font-size: .95rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: .6rem;
+      box-shadow: 0 6px 28px rgba(28,18,7,.4);
+      transition: transform .2s, box-shadow .2s, background .2s;
+      opacity: 0; pointer-events: none;
+    }
+    #cart-fab.visible { opacity: 1; pointer-events: auto; }
+    #cart-fab:hover { background: var(--red); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(185,28,28,.45); }
+    #cart-count {
+      background: var(--gold); color: var(--dark);
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 800;
+    }
+
+    /* ── CART OVERLAY & DRAWER ── */
+    #cart-overlay {
+      position: fixed; inset: 0; z-index: 250;
+      background: rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    #cart-overlay.open { opacity: 1; pointer-events: auto; }
+
+    #cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 260;
+      width: min(420px, 100vw); background: #fff;
+      display: flex; flex-direction: column;
+      transform: translateX(100%); transition: transform .3s cubic-bezier(.16,1,.3,1);
+      box-shadow: -8px 0 40px rgba(0,0,0,.18);
+    }
+    #cart-drawer.open { transform: translateX(0); }
+
+    .cart-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; background: var(--dark);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .cart-header h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.2rem; }
+    .cart-close { background: none; border: none; color: #a8a29e; font-size: 1.4rem; cursor: pointer; line-height: 1; transition: color .15s; }
+    .cart-close:hover { color: #fff; }
+
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+    .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: .95rem; }
+    .cart-empty .empty-icon { font-size: 2.5rem; margin-bottom: .75rem; }
+
+    .cart-item { display: flex; align-items: center; gap: .75rem; padding: .85rem 0; border-bottom: 1px solid var(--border); }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item-name { flex: 1; font-weight: 600; font-size: .875rem; }
+    .cart-item-price { color: var(--red); font-weight: 700; font-size: .875rem; min-width: 52px; text-align: right; }
+    .qty-controls { display: flex; align-items: center; gap: .35rem; }
+    .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--border); background: #fff; font-size: .85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--dark); }
+    .qty-btn:hover { border-color: var(--red); color: var(--red); }
+    .qty-num { font-weight: 700; font-size: .875rem; min-width: 18px; text-align: center; }
+
+    .cart-footer { padding: 1.25rem 1.5rem max(1.25rem, calc(1.25rem + env(safe-area-inset-bottom))); border-top: 1px solid var(--border); background: #fafaf9; }
+    .cart-subtotal { display: flex; justify-content: space-between; font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .cart-note { font-size: .75rem; color: var(--muted); margin-bottom: 1rem; }
+    .cart-checkout { display: block; width: 100%; padding: .9rem; background: var(--red); color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+    .cart-checkout:hover { background: #991b1b; }
+    .cart-phone { display: block; text-align: center; margin-top: .6rem; color: var(--muted); font-size: .8rem; text-decoration: none; }
+    .cart-phone:hover { color: var(--red); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip { text-align: center; padding: 3.5rem 1.5rem; background: var(--dark); color: #fff; }
+    .cta-strip h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: .5rem; color: #fff; }
+    .cta-strip p { color: #a8a29e; margin-bottom: 1.5rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.75rem; border-radius: 8px; font-weight: 600; font-size: .95rem; text-decoration: none; transition: transform .15s, box-shadow .15s; cursor: pointer; border: none; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+    .btn-gold { background: var(--gold); color: var(--dark); }
+    .btn-outline-white { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.35); margin-left: .5rem; }
+    .btn-outline-white:hover { border-color: #fff; }
+
+    footer { background: #110c04; color: #a8a29e; padding: 2rem 1.5rem; text-align: center; font-size: .85rem; }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── 768px: mobile nav ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.1rem; }
+      .nav-links {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(28,18,7,.97); flex-direction: column;
+        padding: 1rem 1.5rem 1.5rem; gap: 1rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+    }
+
+    /* ── 640px: small screen layout ── */
+    @media (max-width: 640px) {
+      .menu-hero { padding: 5.5rem 1.1rem 1.75rem; min-height: 32vh; }
+      .menu-hero h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+
+      .filter-wrap { padding: .6rem .9rem; }
+      .filter-bar { gap: .4rem; }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .filter-btn { padding: .55rem .9rem; font-size: .8rem; min-height: 40px; }
+
+      .menu-grid-wrap { padding: 1.5rem .9rem max(5rem, calc(4.5rem + env(safe-area-inset-bottom))); }
+      .dish-grid { grid-template-columns: 1fr; gap: .75rem; }
+
+      .category-section { margin-bottom: 2.75rem; }
+      .category-title { font-size: 1.35rem; }
+      .category-emoji { font-size: 1.35rem; }
+
+      .dish-body { padding: 1rem 1.1rem 1.1rem; }
+      .dish-name { font-size: 1rem; }
+      .dish-add { min-height: 42px; padding: .6rem 1.1rem; font-size: .85rem; }
+      .dish-price { font-size: 1.1rem; }
+
+      #cart-fab {
+        bottom: max(1rem, calc(.75rem + env(safe-area-inset-bottom)));
+        right: 1rem;
+        padding: .75rem 1.2rem;
+        font-size: .9rem;
+      }
+
+      .cta-strip { padding: 2.5rem 1.25rem max(2.5rem, calc(1.5rem + env(safe-area-inset-bottom))); }
+      .cta-strip h2 { font-size: 1.6rem; }
+      .cta-strip .btn { display: flex; width: 100%; max-width: 280px; margin: 0 auto .6rem; justify-content: center; }
+      .btn-outline-white { margin-left: 0; }
+
+      footer { padding-bottom: max(1.5rem, calc(1rem + env(safe-area-inset-bottom))); }
+    }
+  </style>
+</head>
+<body>
+<div id="scroll-bar"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Daniel's</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="#" class="active">Order Online</a></li>
+    <li><a href="index.html#info">Hours</a></li>
+    <li><a href="index.html" class="nav-back">← Home</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="menu-hero">
+  <div class="menu-hero-inner">
+    <small>Daniel's Mexican Restaurant · Thornwood, NY</small>
+    <h1>Order Online</h1>
+    <p>Browse the full menu, add items to your cart, and place your order.</p>
+  </div>
+</div>
+
+<div class="filter-wrap">
+  <div class="filter-bar">
+    <button class="filter-btn active" data-cat="all">All</button>
+    <button class="filter-btn" data-cat="appetizers">🌶 Appetizers</button>
+    <button class="filter-btn" data-cat="fajitas">🔥 Fajitas</button>
+    <button class="filter-btn" data-cat="burritos">🌯 Burritos</button>
+    <button class="filter-btn" data-cat="enchiladas">🫔 Enchiladas</button>
+    <button class="filter-btn" data-cat="pollo">🍗 Pollo</button>
+    <button class="filter-btn" data-cat="carnes">🥩 Carnes</button>
+    <button class="filter-btn" data-cat="mariscos">🦐 Mariscos</button>
+    <button class="filter-btn" data-cat="combos">🍽 Combos</button>
+    <button class="filter-btn" data-cat="drinks">🍹 Drinks</button>
+    <button class="filter-btn" data-cat="desserts">🍮 Desserts</button>
+  </div>
+</div>
+
+<div class="menu-grid-wrap">
+
+  <!-- ══ APPETIZERS ══ -->
+  <div class="category-section reveal" id="cat-appetizers" data-cat="appetizers">
+    <div class="category-header">
+      <span class="category-emoji">🌶</span>
+      <h2 class="category-title">Appetizers</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Chile Poppers</div>
+            <span class="dish-badge">Fan Fav</span>
+          </div>
+          <p class="dish-desc">Cream cheese stuffed jalapeño peppers, dipped in spicy breading &amp; fried golden crisp</p>
+          <div class="dish-footer">
+            <span class="dish-price">$4.25</span>
+            <button class="dish-add" data-name="Chile Poppers" data-price="4.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Mexican Pizza</div></div>
+          <p class="dish-desc">Crispy tortilla base with cheese &amp; toppings. Add chicken or picadillo +$1</p>
+          <div class="dish-footer">
+            <span class="dish-price">$6.25</span>
+            <button class="dish-add" data-name="Mexican Pizza" data-price="6.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Chicken Taquito</div></div>
+          <p class="dish-desc">Crispy rolled tortillas packed with seasoned chicken, served with dipping sauce</p>
+          <div class="dish-footer">
+            <span class="dish-price">$6.95</span>
+            <button class="dish-add" data-name="Chicken Taquito" data-price="6.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Quesadilla</div></div>
+          <p class="dish-desc">Flour tortilla with melted cheese. Add chicken or picadillo +$1</p>
+          <div class="dish-footer">
+            <span class="dish-price">$5.25</span>
+            <button class="dish-add" data-name="Quesadilla" data-price="5.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Cheese Crisp</div></div>
+          <p class="dish-desc">Golden crispy tortilla loaded with bubbling melted cheese</p>
+          <div class="dish-footer">
+            <span class="dish-price">$3.00</span>
+            <button class="dish-add" data-name="Cheese Crisp" data-price="3.00">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Queso Fundido</div></div>
+          <p class="dish-desc">Warm melted cheese dip served with tortillas. Add chorizo +$1</p>
+          <div class="dish-footer">
+            <span class="dish-price">$3.00</span>
+            <button class="dish-add" data-name="Queso Fundido" data-price="3.00">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Daniel's Fiesta Plate</div>
+            <span class="dish-badge">Signature</span>
+          </div>
+          <p class="dish-desc">Our signature starter sampler — a little of everything to kick off the feast</p>
+          <div class="dish-footer">
+            <span class="dish-price">$8.95</span>
+            <button class="dish-add" data-name="Daniel's Fiesta Plate" data-price="8.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Quesadilla de Camarón</div></div>
+          <p class="dish-desc">Flour tortilla with melted cheese and plump seasoned shrimp</p>
+          <div class="dish-footer">
+            <span class="dish-price">$6.95</span>
+            <button class="dish-add" data-name="Quesadilla de Camarón" data-price="6.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ FAJITAS ══ -->
+  <div class="category-section reveal" id="cat-fajitas" data-cat="fajitas">
+    <div class="category-header">
+      <span class="category-emoji">🔥</span>
+      <h2 class="category-title">Fajitas</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Steak or Chicken Fajitas</div>
+            <span class="dish-badge">Sizzling</span>
+          </div>
+          <p class="dish-desc">Hot sizzling skillet with mixed veggies, rice, beans, tortillas, salsa, sour cream &amp; guac</p>
+          <div class="dish-footer">
+            <span class="dish-price">$10.95</span>
+            <button class="dish-add" data-name="Steak or Chicken Fajitas" data-price="10.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Shrimp Fajitas</div></div>
+          <p class="dish-desc">Sizzling shrimp with peppers &amp; onions, with all the classic fajita sides</p>
+          <div class="dish-footer">
+            <span class="dish-price">$12.95</span>
+            <button class="dish-add" data-name="Shrimp Fajitas" data-price="12.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Fish Fajitas</div></div>
+          <p class="dish-desc">Grilled fish on a sizzling skillet with peppers, onions &amp; all the fixings</p>
+          <div class="dish-footer">
+            <span class="dish-price">$11.95</span>
+            <button class="dish-add" data-name="Fish Fajitas" data-price="11.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Fajitas for Two</div>
+            <span class="dish-badge">Share</span>
+          </div>
+          <p class="dish-desc">A generous platter built for sharing — double the sizzle, double the fun</p>
+          <div class="dish-footer">
+            <span class="dish-price">$15.95</span>
+            <button class="dish-add" data-name="Fajitas for Two" data-price="15.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ BURRITOS ══ -->
+  <div class="category-section reveal" id="cat-burritos" data-cat="burritos">
+    <div class="category-header">
+      <span class="category-emoji">🌯</span>
+      <h2 class="category-title">Burritos</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Burrito de Asada</div></div>
+          <p class="dish-desc">Grilled steak wrapped in a flour tortilla with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$8.95</span>
+            <button class="dish-add" data-name="Burrito de Asada" data-price="8.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Macho Burrito</div>
+            <span class="dish-badge">Loaded</span>
+          </div>
+          <p class="dish-desc">A fully loaded burrito packed with all the good stuff — rice &amp; beans included</p>
+          <div class="dish-footer">
+            <span class="dish-price">$8.95</span>
+            <button class="dish-add" data-name="Macho Burrito" data-price="8.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Burrito Verde</div></div>
+          <p class="dish-desc">Green chile pork burrito — bright, tangy, and packed with flavor. With rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Burrito Verde" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Burrito Colorado</div></div>
+          <p class="dish-desc">Red chile pork burrito with deep, smoky flavor. With rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Burrito Colorado" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Burrito Chorizo</div></div>
+          <p class="dish-desc">Spicy Mexican chorizo burrito with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Burrito Chorizo" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Beef &amp; Beans Burrito</div></div>
+          <p class="dish-desc">Classic ground beef and bean burrito — a timeless crowd-pleaser</p>
+          <div class="dish-footer">
+            <span class="dish-price">$6.95</span>
+            <button class="dish-add" data-name="Beef & Beans Burrito" data-price="6.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ ENCHILADAS ══ -->
+  <div class="category-section reveal" id="cat-enchiladas" data-cat="enchiladas">
+    <div class="category-header">
+      <span class="category-emoji">🫔</span>
+      <h2 class="category-title">Enchiladas</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Enchilada Mole</div>
+            <span class="dish-badge">Traditional</span>
+          </div>
+          <p class="dish-desc">2 tortillas bathed in rich, complex mole sauce with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Enchilada Mole" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Enchilada Suiza</div></div>
+          <p class="dish-desc">2 tortillas in a creamy green tomatillo sauce, with sour cream, rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Enchilada Suiza" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Enchilada Pork</div></div>
+          <p class="dish-desc">2 tortillas filled with tender pork in a savory red sauce, with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Enchilada Pork" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Enchilada Vallarta</div></div>
+          <p class="dish-desc">2 tortillas with Vallarta-style sauce, rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Enchilada Vallarta" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Enchilada Colorado</div></div>
+          <p class="dish-desc">2 tortillas in bold red chile sauce, with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.95</span>
+            <button class="dish-add" data-name="Enchilada Colorado" data-price="7.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Enchilada Sunrise</div>
+            <span class="dish-badge">Chef's Pick</span>
+          </div>
+          <p class="dish-desc">A signature enchilada plate with a special house sauce combination</p>
+          <div class="dish-footer">
+            <span class="dish-price">$8.25</span>
+            <button class="dish-add" data-name="Enchilada Sunrise" data-price="8.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ POLLO ══ -->
+  <div class="category-section reveal" id="cat-pollo" data-cat="pollo">
+    <div class="category-header">
+      <span class="category-emoji">🍗</span>
+      <h2 class="category-title">Pollo (Chicken)</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Chicken Carnitas</div></div>
+          <p class="dish-desc">Slow-cooked tender chicken with rice, beans &amp; warm tortillas</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.95</span>
+            <button class="dish-add" data-name="Chicken Carnitas" data-price="9.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Chicken en Mole</div>
+            <span class="dish-badge">Traditional</span>
+          </div>
+          <p class="dish-desc">Tender chicken smothered in a deep, complex mole sauce</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.95</span>
+            <button class="dish-add" data-name="Chicken en Mole" data-price="9.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Pollo Asada</div></div>
+          <p class="dish-desc">Charcoal-grilled chicken with smoky flavor — rice, beans &amp; tortillas</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.95</span>
+            <button class="dish-add" data-name="Pollo Asada" data-price="9.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Arroz con Pollo</div></div>
+          <p class="dish-desc">Chicken cooked together with perfectly seasoned Mexican rice</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.95</span>
+            <button class="dish-add" data-name="Arroz con Pollo" data-price="9.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Pollo al Crema</div></div>
+          <p class="dish-desc">Chicken in a rich, velvety cream sauce — comfort on a plate</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.95</span>
+            <button class="dish-add" data-name="Pollo al Crema" data-price="9.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ CARNES ══ -->
+  <div class="category-section reveal" id="cat-carnes" data-cat="carnes">
+    <div class="category-header">
+      <span class="category-emoji">🥩</span>
+      <h2 class="category-title">Carnes (Beef &amp; Pork)</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Daniel's T-Bone</div>
+            <span class="dish-badge">Signature</span>
+          </div>
+          <p class="dish-desc">Our house T-bone steak chargrilled to perfection with all the classic sides</p>
+          <div class="dish-footer">
+            <span class="dish-price">$11.50</span>
+            <button class="dish-add" data-name="Daniel's T-Bone" data-price="11.50">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Carne Asada</div></div>
+          <p class="dish-desc">Grilled marinated steak sliced thin, with rice, beans &amp; flour tortillas</p>
+          <div class="dish-footer">
+            <span class="dish-price">$10.95</span>
+            <button class="dish-add" data-name="Carne Asada" data-price="10.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Chile Verde</div></div>
+          <p class="dish-desc">Tender pork simmered in a bright, tangy green chile sauce</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.25</span>
+            <button class="dish-add" data-name="Chile Verde" data-price="9.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Chile Colorado</div></div>
+          <p class="dish-desc">Pork slow-cooked in a rich, earthy red chile sauce</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.25</span>
+            <button class="dish-add" data-name="Chile Colorado" data-price="9.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Steak Ranchero</div></div>
+          <p class="dish-desc">Grilled steak in a bold, chunky ranchero tomato sauce</p>
+          <div class="dish-footer">
+            <span class="dish-price">$9.95</span>
+            <button class="dish-add" data-name="Steak Ranchero" data-price="9.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ MARISCOS ══ -->
+  <div class="category-section reveal" id="cat-mariscos" data-cat="mariscos">
+    <div class="category-header">
+      <span class="category-emoji">🦐</span>
+      <h2 class="category-title">Mariscos (Seafood)</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Camarones Rancheros</div></div>
+          <p class="dish-desc">Plump shrimp in a zesty ranchero sauce, served with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$10.95</span>
+            <button class="dish-add" data-name="Camarones Rancheros" data-price="10.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Camarones Monterrey</div></div>
+          <p class="dish-desc">Shrimp in a rich Monterrey-style cream sauce, with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$11.95</span>
+            <button class="dish-add" data-name="Camarones Monterrey" data-price="11.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Tilapia / Trucha Frita</div></div>
+          <p class="dish-desc">Whole fried tilapia or trout — crispy outside, tender inside. With rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$10.95</span>
+            <button class="dish-add" data-name="Tilapia / Trucha Frita" data-price="10.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">7 Mares Soup</div>
+            <span class="dish-badge">House Special</span>
+          </div>
+          <p class="dish-desc">Seven seafood varieties in one rich, aromatic broth — the ultimate mariscos bowl</p>
+          <div class="dish-footer">
+            <span class="dish-price">$14.95</span>
+            <button class="dish-add" data-name="7 Mares Soup" data-price="14.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ COMBOS ══ -->
+  <div class="category-section reveal" id="cat-combos" data-cat="combos">
+    <div class="category-header">
+      <span class="category-emoji">🍽</span>
+      <h2 class="category-title">Combination Plates</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Poco — One Item</div></div>
+          <p class="dish-desc">Your choice of 1 item served with rice &amp; beans</p>
+          <div class="dish-footer">
+            <span class="dish-price">$5.95</span>
+            <button class="dish-add" data-name="Poco Combo (1 item)" data-price="5.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Mediano — Two Items</div>
+            <span class="dish-badge">Popular</span>
+          </div>
+          <p class="dish-desc">Mix &amp; match 2 items with rice &amp; beans — great everyday value</p>
+          <div class="dish-footer">
+            <span class="dish-price">$7.45</span>
+            <button class="dish-add" data-name="Mediano Combo (2 items)" data-price="7.45">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Grande — Three Items</div>
+            <span class="dish-badge">Best Value</span>
+          </div>
+          <p class="dish-desc">3 items with rice &amp; beans — the full Mexican feast for a great price</p>
+          <div class="dish-footer">
+            <span class="dish-price">$8.95</span>
+            <button class="dish-add" data-name="Grande Combo (3 items)" data-price="8.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Taco Salad</div></div>
+          <p class="dish-desc">Ground beef, chicken, or picadillo in a crispy shell with all the toppings</p>
+          <div class="dish-footer">
+            <span class="dish-price">$5.25</span>
+            <button class="dish-add" data-name="Taco Salad" data-price="5.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Kids Menu</div></div>
+          <p class="dish-desc">For young vaqueros age 10 &amp; under — includes a drink</p>
+          <div class="dish-footer">
+            <span class="dish-price">$3.95</span>
+            <button class="dish-add" data-name="Kids Menu" data-price="3.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DRINKS ══ -->
+  <div class="category-section reveal" id="cat-drinks" data-cat="drinks">
+    <div class="category-header">
+      <span class="category-emoji">🍹</span>
+      <h2 class="category-title">Drinks &amp; Bar</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Regular Margarita</div>
+            <span class="dish-badge">Classic</span>
+          </div>
+          <p class="dish-desc">House margarita with tequila, fresh lime juice &amp; triple sec</p>
+          <div class="dish-footer">
+            <span class="dish-price">$4.75</span>
+            <button class="dish-add" data-name="Regular Margarita" data-price="4.75">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Flavored Margarita</div></div>
+          <p class="dish-desc">Strawberry, mango, or your favorite — bright, refreshing &amp; fruity</p>
+          <div class="dish-footer">
+            <span class="dish-price">$5.25</span>
+            <button class="dish-add" data-name="Flavored Margarita" data-price="5.25">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Gold / Cadillac Margarita</div>
+            <span class="dish-badge">Premium</span>
+          </div>
+          <p class="dish-desc">Premium gold tequila &amp; Grand Marnier float — the best margarita on the menu</p>
+          <div class="dish-footer">
+            <span class="dish-price">$6.75</span>
+            <button class="dish-add" data-name="Gold / Cadillac Margarita" data-price="6.75">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Mexican Beer</div></div>
+          <p class="dish-desc">Corona, Modelo, Dos Equis &amp; more — ice cold imported lagers. Bucket of 6 for $12</p>
+          <div class="dish-footer">
+            <span class="dish-price">$3.50</span>
+            <button class="dish-add" data-name="Mexican Beer" data-price="3.50">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Tequila Shots</div></div>
+          <p class="dish-desc">Various premium brands available — silver, gold &amp; reposado</p>
+          <div class="dish-footer">
+            <span class="dish-price">$3.75</span>
+            <button class="dish-add" data-name="Tequila Shot" data-price="3.75">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Aguas Frescas &amp; Jarritos</div></div>
+          <p class="dish-desc">Freshly made horchata, jamaica &amp; tamarind. Mexican fruit sodas in assorted flavors</p>
+          <div class="dish-footer">
+            <span class="dish-price">from $1.75</span>
+            <button class="dish-add" data-name="Aguas Frescas / Jarritos" data-price="1.75">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DESSERTS ══ -->
+  <div class="category-section reveal" id="cat-desserts" data-cat="desserts">
+    <div class="category-header">
+      <span class="category-emoji">🍮</span>
+      <h2 class="category-title">Desserts</h2>
+      <div class="category-line"></div>
+    </div>
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Flan</div>
+            <span class="dish-badge">Classic</span>
+          </div>
+          <p class="dish-desc">Silky Mexican caramel custard — a classic ending to any great meal</p>
+          <div class="dish-footer">
+            <span class="dish-price">$2.00</span>
+            <button class="dish-add" data-name="Flan" data-price="2.00">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top"><div class="dish-name">Sopapillas</div></div>
+          <p class="dish-desc">Warm, pillowy fried dough dusted with cinnamon sugar &amp; drizzled with honey</p>
+          <div class="dish-footer">
+            <span class="dish-price">$2.50</span>
+            <button class="dish-add" data-name="Sopapillas" data-price="2.50">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="dish-body">
+          <div class="dish-top">
+            <div class="dish-name">Deep Fried Ice Cream</div>
+            <span class="dish-badge">Must Try</span>
+          </div>
+          <p class="dish-desc">Vanilla ice cream in a crispy golden shell — warm outside, perfectly cold inside</p>
+          <div class="dish-footer">
+            <span class="dish-price">$3.95</span>
+            <button class="dish-add" data-name="Deep Fried Ice Cream" data-price="3.95">+ Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- CART FAB -->
+<button id="cart-fab" onclick="openCart()">
+  🛒 View Order <span id="cart-count">0</span>
+</button>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div id="cart-drawer">
+  <div class="cart-header">
+    <h2>Your Order</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list">
+    <div class="cart-empty">
+      <div class="empty-icon">🛒</div>
+      Add items from the menu to get started.
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cart-total">$0.00</span>
+    </div>
+    <p class="cart-note">Tax &amp; fees calculated at checkout. Call to confirm special requests.</p>
+    <button class="cart-checkout" onclick="checkout()">Place Order via Toast →</button>
+    <a class="cart-phone" href="tel:9144496678">Or call us: (914) 449-6678</a>
+  </div>
+</div>
+
+<div class="cta-strip">
+  <h2>Ready to Order?</h2>
+  <p>Add items above and tap "View Order" — or give us a call.</p>
+  <button class="btn btn-gold" onclick="window.scrollTo({top:0,behavior:'smooth'})">Browse Menu ↑</button>
+  <a href="tel:9144496678" class="btn btn-outline-white">Call (914) 449-6678</a>
+</div>
+
+<footer>
+  <p>© 2024 Daniel's Mexican Restaurant · 57 Kensico Rd, Thornwood, NY 10594 · <a href="tel:9144496678">(914) 449-6678</a></p>
+  <p style="margin-top:.4rem"><a href="index.html">← Back to Home</a></p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  const bar = document.getElementById('scroll-bar');
+  window.addEventListener('scroll', () => {
+    const d = document.documentElement;
+    bar.style.width = (window.scrollY / (d.scrollHeight - d.clientHeight) * 100) + '%';
+  }, { passive: true });
+
+  let cart = [];
+
+  function addToCart(btn) {
+    const name  = btn.dataset.name;
+    const price = parseFloat(btn.dataset.price);
+    const existing = cart.find(i => i.name === name);
+    if (existing) { existing.qty++; } else { cart.push({ name, price, qty: 1 }); }
+    btn.textContent = '✓ Added';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = '+ Add'; btn.classList.remove('added'); }, 1200);
+    renderCart();
+    pulseFab();
+  }
+
+  function updateQty(name, delta) {
+    const idx = cart.findIndex(i => i.name === name);
+    if (idx === -1) return;
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    renderCart();
+  }
+
+  function renderCart() {
+    const list   = document.getElementById('cart-items-list');
+    const footer = document.getElementById('cart-footer');
+    const count  = document.getElementById('cart-count');
+    const total  = document.getElementById('cart-total');
+    const fab    = document.getElementById('cart-fab');
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    const totalAmt = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    count.textContent = totalQty;
+    total.textContent = '$' + totalAmt.toFixed(2);
+    if (totalQty > 0) {
+      fab.classList.add('visible');
+      footer.style.display = '';
+      list.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="updateQty('${item.name.replace(/'/g,"\\'")}', -1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="updateQty('${item.name.replace(/'/g,"\\'")}', 1)">+</button>
+          </div>
+          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+        </div>
+      `).join('');
+    } else {
+      fab.classList.remove('visible');
+      footer.style.display = 'none';
+      list.innerHTML = '<div class="cart-empty"><div class="empty-icon">🛒</div>Add items from the menu to get started.</div>';
+    }
+  }
+
+  function pulseFab() {
+    const fab = document.getElementById('cart-fab');
+    fab.style.transform = 'scale(1.12) translateY(-3px)';
+    setTimeout(() => { fab.style.transform = ''; }, 220);
+  }
+
+  function openCart() {
+    document.getElementById('cart-drawer').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function checkout() {
+    window.open('https://order.toasttab.com/online/daniel-s-mexican-restaurant-57-kensico-road', '_blank');
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const cat = this.dataset.cat;
+      document.querySelectorAll('.category-section').forEach(sec => {
+        const show = cat === 'all' || sec.dataset.cat === cat;
+        sec.style.display = show ? '' : 'none';
+        if (show && sec.classList.contains('visible')) animateCards(sec);
+      });
+      if (cat !== 'all') {
+        const t = document.getElementById('cat-' + cat);
+        if (t) setTimeout(() => t.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    });
+  });
+
+  function animateCards(section) {
+    section.querySelectorAll('.dish-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(16px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity .3s ease, transform .3s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, i * 40);
+    });
+  }
+
+  document.querySelectorAll('.dish-add').forEach(btn => {
+    btn.addEventListener('click', () => addToCart(btn));
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        animateCards(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+
+  document.querySelectorAll('.category-section').forEach(s => io.observe(s));
+</script>
+</body>
+</html>

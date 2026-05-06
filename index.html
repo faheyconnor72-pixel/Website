@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Daniel's Mexican Restaurant – Thornwood, NY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #b91c1c;
+      --orange: #ea580c;
+      --gold:   #d97706;
+      --cream:  #fdf6e3;
+      --dark:   #1c1207;
+      --muted:  #78716c;
+      --border: #e7e5e4;
+      --radius: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+      background: rgba(28,18,7,0.92);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.25rem; font-weight: 700;
+      text-decoration: none; white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a {
+      color: #e7e5e4; text-decoration: none; font-size: .875rem;
+      font-weight: 500; letter-spacing: .04em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--red); color: #fff !important;
+      padding: .4rem 1rem; border-radius: 6px;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #991b1b !important; color: #fff !important; }
+
+    /* hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: .25rem; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #e7e5e4; margin: 5px 0; border-radius: 2px; transition: .3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      background:
+        linear-gradient(to bottom, rgba(28,18,7,.65) 0%, rgba(28,18,7,.45) 60%, rgba(28,18,7,.85) 100%),
+        url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1600&auto=format&fit=crop') center/cover no-repeat;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .hero-inner { max-width: 780px; }
+    .hero-badge {
+      display: inline-block; background: var(--gold); color: var(--dark);
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: .35rem .9rem; border-radius: 999px; margin-bottom: 1.25rem;
+    }
+    .hero-inner h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900; color: #fff; line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .hero-inner h1 span { color: var(--gold); }
+    .hero-inner p {
+      color: #d6d3d1; font-size: 1.125rem; max-width: 520px; margin: 0 auto 2rem;
+    }
+    .btn-row { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.75rem; border-radius: 8px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+    .btn-primary { background: var(--red); color: #fff; }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.6); }
+    .btn-outline:hover { border-color: #fff; }
+
+    .hero-review { max-width: 600px; margin: 0 auto 2rem; }
+    .hero-review-stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 3px; margin-bottom: .6rem; }
+    .hero-review-quote {
+      color: #fff; font-size: 1.15rem; line-height: 1.6; font-style: italic;
+      font-weight: 600; margin-bottom: .5rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,.5);
+    }
+    .hero-review-author { color: var(--gold); font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+
+    .hero-info {
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,.15);
+    }
+    .hero-info-item { text-align: center; }
+    .hero-info-item .label { color: var(--gold); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+    .hero-info-item .value { color: #fff; font-size: .95rem; margin-top: .2rem; }
+
+    /* ── SECTION WRAPPER ── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 700; line-height: 1.15; margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); max-width: 540px; }
+    .divider { width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin: 1rem 0 2rem; }
+
+    /* ── ABOUT ── */
+    #about { background: #fff; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-img {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      aspect-ratio: 4/3;
+    }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .feature-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: .75rem; }
+    .feature-list li { display: flex; align-items: center; gap: .75rem; font-size: .95rem; }
+    .feature-list li::before {
+      content: '✦'; color: var(--gold); font-size: .7rem; flex-shrink: 0;
+    }
+
+    /* ── MENU ── */
+    #menu { background: var(--cream); }
+    .menu-tabs {
+      display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem;
+    }
+    .tab-btn {
+      padding: .5rem 1.1rem; border-radius: 999px; border: 2px solid var(--border);
+      background: #fff; color: var(--muted); font-size: .85rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--red); color: #fff; border-color: var(--red);
+    }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1rem; }
+    .menu-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      border: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1rem;
+      transition: box-shadow .2s;
+    }
+    .menu-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+    .menu-card-body { flex: 1; }
+    .menu-card-name { font-weight: 600; font-size: .95rem; margin-bottom: .25rem; }
+    .menu-card-desc { color: var(--muted); font-size: .8rem; line-height: 1.4; }
+    .menu-card-price {
+      font-weight: 700; color: var(--red); font-size: .95rem; white-space: nowrap;
+    }
+
+    /* ── SPECIALS BANNER ── */
+    #specials {
+      background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+      color: #fff; padding: 4rem 1.5rem; text-align: center;
+    }
+    #specials .section-label { color: rgba(255,255,255,.7); }
+    #specials .section-title { color: #fff; margin: 0 auto; }
+    #specials .divider { background: rgba(255,255,255,.4); margin: 1rem auto 2rem; }
+    .specials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 1.5rem; max-width: 900px; margin: 0 auto;
+    }
+    .special-card {
+      background: rgba(255,255,255,.12); border-radius: var(--radius);
+      padding: 1.5rem; border: 1px solid rgba(255,255,255,.2);
+    }
+    .special-card .icon { font-size: 2rem; margin-bottom: .75rem; }
+    .special-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: .4rem; }
+    .special-card p { font-size: .875rem; opacity: .85; }
+    .special-card .price { font-size: 1.4rem; font-weight: 700; margin-top: .75rem; color: var(--gold); }
+
+    /* ── HOURS & LOCATION ── */
+    #info { background: #fff; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .info-card {
+      background: var(--cream); border-radius: var(--radius);
+      padding: 2rem; border: 1px solid var(--border);
+    }
+    .info-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; margin-bottom: 1.25rem;
+      padding-bottom: .75rem; border-bottom: 2px solid var(--orange);
+    }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      padding: .5rem 0; font-size: .9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { color: var(--muted); }
+    .hours-row .time { font-weight: 600; }
+    .map-embed {
+      border-radius: 10px; overflow: hidden; margin-top: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    }
+    .map-embed iframe { display: block; width: 100%; height: 220px; border: none; }
+    .address-block { margin-top: 1rem; font-size: .9rem; line-height: 1.8; }
+    .address-block a { color: var(--red); text-decoration: none; font-weight: 600; }
+    .address-block a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: #a8a29e;
+      padding: 3rem 1.5rem; text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.5rem; font-weight: 700; margin-bottom: .5rem;
+    }
+    footer p { font-size: .875rem; margin-bottom: 1.5rem; }
+    .social-links { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+    .social-links a {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      color: #a8a29e; text-decoration: none; font-size: .85rem;
+      transition: all .2s;
+    }
+    .social-links a:hover { background: var(--red); color: #fff; border-color: var(--red); }
+    footer hr { border: none; border-top: 1px solid rgba(255,255,255,.08); margin-bottom: 1.5rem; }
+    footer small { font-size: .8rem; }
+
+    /* ── SCROLL PROGRESS BAR ── */
+    #scroll-bar {
+      position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      width: 0%; transition: width .1s linear;
+      pointer-events: none;
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* stagger delay helpers */
+    .delay-1 { transition-delay: .1s !important; }
+    .delay-2 { transition-delay: .2s !important; }
+    .delay-3 { transition-delay: .3s !important; }
+    .delay-4 { transition-delay: .4s !important; }
+    .delay-5 { transition-delay: .5s !important; }
+    .delay-6 { transition-delay: .6s !important; }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--dark); padding: 5rem 1.5rem; }
+    #reviews .section-label { color: var(--gold); }
+    #reviews .section-title { color: #fff; }
+    #reviews .section-sub { color: #a8a29e; }
+    #reviews .divider { background: var(--gold); }
+
+    .rating-summary {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 1.25rem 1.75rem;
+      margin-bottom: 3rem;
+    }
+    .rating-big { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: #fff; line-height: 1; }
+    .rating-right { display: flex; flex-direction: column; gap: .25rem; }
+    .stars-row { display: flex; gap: 3px; }
+    .star { color: var(--gold); font-size: 1.1rem; }
+    .star.half { opacity: .5; }
+    .rating-count { color: #a8a29e; font-size: .85rem; }
+    .rating-divider { width: 1px; height: 50px; background: rgba(255,255,255,.12); margin: 0 .5rem; }
+    .rating-platforms { display: flex; flex-direction: column; gap: .35rem; }
+    .platform-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .78rem; font-weight: 600; color: #d6d3d1;
+    }
+    .platform-badge .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .dot-yelp { background: #d32323; }
+    .dot-google { background: #4285f4; }
+    .dot-yahoo { background: #720e9e; }
+
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .review-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 1.5rem;
+      transition: background .2s, transform .2s;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .review-card:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
+    .review-stars { display: flex; gap: 3px; }
+    .review-stars .star { font-size: .9rem; }
+    .review-quote {
+      color: #e7e5e4; font-size: .925rem; line-height: 1.65; flex: 1;
+      font-style: italic;
+    }
+    .review-quote::before { content: '\201C'; color: var(--gold); font-size: 1.4rem; line-height: 0; vertical-align: -0.3em; margin-right: 2px; }
+    .review-quote::after  { content: '\201D'; color: var(--gold); font-size: 1.4rem; line-height: 0; vertical-align: -0.3em; margin-left: 2px; }
+    .review-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+    .reviewer-name { color: #fff; font-weight: 600; font-size: .875rem; }
+    .reviewer-date { color: #78716c; font-size: .78rem; margin-top: .15rem; }
+    .review-source {
+      font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+      padding: .2rem .6rem; border-radius: 999px;
+    }
+    .source-yahoo  { background: rgba(114,14,158,.25); color: #c084fc; border: 1px solid rgba(114,14,158,.4); }
+    .source-google { background: rgba(66,133,244,.2);  color: #7cb3f7; border: 1px solid rgba(66,133,244,.3); }
+
+    .reviews-cta { text-align: center; margin-top: 2.5rem; }
+    .reviews-cta a {
+      color: var(--gold); text-decoration: none; font-size: .9rem; font-weight: 600;
+      border-bottom: 1px solid rgba(217,119,6,.4); padding-bottom: 2px;
+      transition: border-color .2s;
+    }
+    .reviews-cta a:hover { border-color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.1rem; }
+      .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(28,18,7,.97); flex-direction: column; padding: 1rem 1.5rem 1.5rem;
+        gap: 1rem; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img { display: none; }
+      .info-grid { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 1.1rem; }
+      .rating-summary { padding: 1rem 1.1rem; gap: 1rem; }
+      .rating-divider { display: none; }
+      .rating-big { font-size: 2.75rem; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .specials-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .hero-info { gap: 1.5rem; padding-top: 1.5rem; margin-top: 2rem; }
+      .menu-tabs { gap: .35rem; }
+      .tab-btn { padding: .45rem .85rem; font-size: .8rem; min-height: 38px; }
+      footer { padding-bottom: max(2rem, calc(1.5rem + env(safe-area-inset-bottom))); }
+    }
+
+    @media (max-width: 480px) {
+      .specials-grid { grid-template-columns: 1fr; }
+      .hero-info-item .value { font-size: .875rem; }
+    }
+  </style>
+</head>
+<body>
+<div id="scroll-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Daniel's</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="menu.html">Photo Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#info">Hours</a></li>
+    <li><a href="#info">Location</a></li>
+    <li><a href="menu.html" class="nav-cta">Order Online</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <span class="hero-badge reveal">🌮 Authentic Mexican Cuisine</span>
+    <h1 class="reveal delay-1">Taste the <span>Heart</span> of Mexico</h1>
+    <div class="hero-review reveal delay-2">
+      <div class="hero-review-stars">★★★★★</div>
+      <p class="hero-review-quote">"There's nothing quite like the first-visit magic when a restaurant gets everything right. Daniel's managed to balance a laid-back ambiance with service that felt truly attentive."</p>
+      <span class="hero-review-author">— Rick R., verified guest</span>
+    </div>
+    <div class="btn-row reveal delay-3">
+      <a href="menu.html" class="btn btn-primary">Order Online</a>
+      <a href="menu.html" class="btn btn-outline">View Photo Menu</a>
+    </div>
+    <div class="hero-info reveal delay-4">
+      <div class="hero-info-item">
+        <div class="label">Location</div>
+        <div class="value">57 Kensico Rd, Thornwood NY</div>
+      </div>
+      <div class="hero-info-item">
+        <div class="label">Phone</div>
+        <div class="value"><a href="tel:9144496678" style="color:#fff;text-decoration:none">(914) 449-6678</a></div>
+      </div>
+      <div class="hero-info-item">
+        <div class="label">Hours Today</div>
+        <div class="value">12:00 PM – 10:00 PM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=800&auto=format&fit=crop" alt="Daniel's Mexican Restaurant interior" />
+      </div>
+      <div class="reveal-right">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">A Family Restaurant with Authentic Flavor</h2>
+        <div class="divider"></div>
+        <p style="color:var(--muted);margin-bottom:1rem">
+          At Daniel's Mexican Restaurant, we bring the vibrant flavors of Mexico straight to your table. Every dish is crafted with care using traditional recipes that have been passed down through generations.
+        </p>
+        <p style="color:var(--muted)">
+          From sizzling fajitas to handcrafted enchiladas, our kitchen is dedicated to bringing you an unforgettable dining experience — full of warmth, flavor, and family.
+        </p>
+        <ul class="feature-list">
+          <li>Authentic recipes with fresh, quality ingredients</li>
+          <li>Family-friendly atmosphere</li>
+          <li>Full bar with handcrafted margaritas</li>
+          <li>Dine-in, takeout &amp; online ordering available</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <p class="section-label reveal">What We Serve</p>
+    <h2 class="section-title reveal delay-1">Our Menu</h2>
+    <div class="divider reveal delay-2"></div>
+
+    <div class="menu-tabs reveal delay-3">
+      <button class="tab-btn active" data-tab="appetizers">Appetizers</button>
+      <button class="tab-btn" data-tab="fajitas">Fajitas</button>
+      <button class="tab-btn" data-tab="burritos">Burritos</button>
+      <button class="tab-btn" data-tab="enchiladas">Enchiladas</button>
+      <button class="tab-btn" data-tab="pollo">Pollo</button>
+      <button class="tab-btn" data-tab="carnes">Carnes</button>
+      <button class="tab-btn" data-tab="mariscos">Mariscos</button>
+      <button class="tab-btn" data-tab="combos">Combos</button>
+      <button class="tab-btn" data-tab="drinks">Drinks</button>
+      <button class="tab-btn" data-tab="desserts">Desserts</button>
+    </div>
+
+    <!-- APPETIZERS -->
+    <div class="menu-panel active" id="tab-appetizers">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Chile Poppers</div><div class="menu-card-desc">Cream cheese stuffed jalapeño peppers, dipped in spicy breading &amp; fried golden crisp</div></div><div class="menu-card-price">$4.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Mexican Pizza</div><div class="menu-card-desc">Add chicken or picadillo +$1.00</div></div><div class="menu-card-price">$6.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Chicken Taquito</div><div class="menu-card-desc">Crispy rolled chicken taquitos</div></div><div class="menu-card-price">$6.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Quesadilla</div><div class="menu-card-desc">Add chicken or picadillo +$1.00</div></div><div class="menu-card-price">$5.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Cheese Crisp</div><div class="menu-card-desc">Classic golden cheese crisp</div></div><div class="menu-card-price">$3.00</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Queso Fundido</div><div class="menu-card-desc">Melted cheese dip. Add chorizo +$1.00</div></div><div class="menu-card-price">$3.00</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Daniel's Fiesta Plate</div><div class="menu-card-desc">Our signature appetizer sampler</div></div><div class="menu-card-price">$8.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Quesadilla de Camarón</div><div class="menu-card-desc">Shrimp quesadilla</div></div><div class="menu-card-price">$6.95</div></div>
+    </div>
+
+    <!-- FAJITAS -->
+    <div class="menu-panel" id="tab-fajitas">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Steak or Chicken Fajitas</div><div class="menu-card-desc">Hot sizzling skillet with mixed veggies, rice, beans, tortillas, salsa, sour cream &amp; guac</div></div><div class="menu-card-price">$10.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Shrimp Fajitas</div><div class="menu-card-desc">Sizzling shrimp with peppers &amp; onions, served with all the fixings</div></div><div class="menu-card-price">$12.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Fish Fajitas</div><div class="menu-card-desc">Grilled fish on a sizzling skillet</div></div><div class="menu-card-price">$11.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Fajitas for Two</div><div class="menu-card-desc">Share the sizzle — a generous platter for two</div></div><div class="menu-card-price">$15.95</div></div>
+    </div>
+
+    <!-- BURRITOS -->
+    <div class="menu-panel" id="tab-burritos">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Burrito de Asada</div><div class="menu-card-desc">Grilled steak burrito with rice &amp; beans</div></div><div class="menu-card-price">$8.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Macho Burrito</div><div class="menu-card-desc">Packed burrito with rice &amp; beans</div></div><div class="menu-card-price">$8.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Burrito Verde</div><div class="menu-card-desc">Green chile burrito with rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Burrito Colorado</div><div class="menu-card-desc">Red chile pork burrito with rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Burrito Chorizo</div><div class="menu-card-desc">Spicy chorizo burrito with rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Beef &amp; Beans Burrito</div><div class="menu-card-desc">Classic ground beef burrito</div></div><div class="menu-card-price">$6.95</div></div>
+    </div>
+
+    <!-- ENCHILADAS -->
+    <div class="menu-panel" id="tab-enchiladas">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Enchilada Mole</div><div class="menu-card-desc">2 tortillas with mole sauce, rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Enchilada Pork</div><div class="menu-card-desc">2 tortillas with pork filling, rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Enchilada Vallarta</div><div class="menu-card-desc">2 tortillas with Vallarta sauce, rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Enchilada Colorado</div><div class="menu-card-desc">2 tortillas with red chile sauce, rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Enchilada Suiza</div><div class="menu-card-desc">2 tortillas with green cream sauce, rice &amp; beans</div></div><div class="menu-card-price">$7.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Enchilada Sunrise</div><div class="menu-card-desc">Special morning-inspired enchilada plate</div></div><div class="menu-card-price">$8.25</div></div>
+    </div>
+
+    <!-- POLLO -->
+    <div class="menu-panel" id="tab-pollo">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Chicken Carnitas</div><div class="menu-card-desc">Slow-cooked chicken, served with rice, beans &amp; tortillas</div></div><div class="menu-card-price">$9.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Chicken en Mole</div><div class="menu-card-desc">Traditional mole sauce over chicken</div></div><div class="menu-card-price">$9.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Pollo Asada</div><div class="menu-card-desc">Charcoal-grilled chicken, full of smoky flavor</div></div><div class="menu-card-price">$9.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Arroz con Pollo</div><div class="menu-card-desc">Chicken cooked with seasoned rice</div></div><div class="menu-card-price">$9.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Pollo al Crema</div><div class="menu-card-desc">Chicken in a rich cream sauce</div></div><div class="menu-card-price">$9.95</div></div>
+    </div>
+
+    <!-- CARNES -->
+    <div class="menu-panel" id="tab-carnes">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Daniel's T-Bone</div><div class="menu-card-desc">Our signature T-bone steak plate</div></div><div class="menu-card-price">$11.50</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Carne Asada</div><div class="menu-card-desc">Grilled marinated steak with rice, beans &amp; tortillas</div></div><div class="menu-card-price">$10.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Chile Verde</div><div class="menu-card-desc">Pork in green chile sauce</div></div><div class="menu-card-price">$9.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Chile Colorado</div><div class="menu-card-desc">Pork in red chile sauce</div></div><div class="menu-card-price">$9.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Steak Ranchero</div><div class="menu-card-desc">Steak in a robust ranchero sauce</div></div><div class="menu-card-price">$9.95</div></div>
+    </div>
+
+    <!-- MARISCOS -->
+    <div class="menu-panel" id="tab-mariscos">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Camarones Rancheros</div><div class="menu-card-desc">Shrimp in ranchero sauce, rice &amp; beans</div></div><div class="menu-card-price">$10.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Camarones Monterrey</div><div class="menu-card-desc">Shrimp in Monterrey style sauce</div></div><div class="menu-card-price">$11.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Tilapia / Trucha Frita</div><div class="menu-card-desc">Fried tilapia or trout with rice &amp; beans</div></div><div class="menu-card-price">$10.95</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">7 Mares Soup</div><div class="menu-card-desc">Seven seas seafood soup — the ultimate mariscos experience</div></div><div class="menu-card-price">$14.95</div></div>
+    </div>
+
+    <!-- COMBOS -->
+    <div class="menu-panel" id="tab-combos">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Poco — One Item</div><div class="menu-card-desc">1 item with rice &amp; beans</div></div><div class="menu-card-price">$5.95–$7.45</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Mediano — Two Items</div><div class="menu-card-desc">2 items with rice &amp; beans</div></div><div class="menu-card-price">$7.45–$8.45</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Grande — Three Items</div><div class="menu-card-desc">3 items with rice &amp; beans — great value!</div></div><div class="menu-card-price">$8.95–$9.45</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Taco Salad</div><div class="menu-card-desc">Ground beef, chicken, or picadillo in a crispy shell</div></div><div class="menu-card-price">$5.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Kids Menu</div><div class="menu-card-desc">For young vaqueros age 10 &amp; under, includes drink</div></div><div class="menu-card-price">$3.95</div></div>
+    </div>
+
+    <!-- DRINKS -->
+    <div class="menu-panel" id="tab-drinks">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Regular Margarita</div><div class="menu-card-desc">Classic house margarita</div></div><div class="menu-card-price">$4.75</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Flavored Margarita</div><div class="menu-card-desc">Strawberry, mango, and more</div></div><div class="menu-card-price">$5.25</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Gold / Cadillac Margarita</div><div class="menu-card-desc">Premium tequila upgrade</div></div><div class="menu-card-price">$6.75</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Tequila Shots</div><div class="menu-card-desc">Various brands available</div></div><div class="menu-card-price">$3.75–$5.75</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Mexican Beer (Corona, etc.)</div><div class="menu-card-desc">Imported Mexican lagers</div></div><div class="menu-card-price">$3.50</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Corona Bucket</div><div class="menu-card-desc">6 bottles of Corona</div></div><div class="menu-card-price">$12.00</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Aguas Frescas</div><div class="menu-card-desc">Horchata, jamaica &amp; more</div></div><div class="menu-card-price">from $0.50</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Jarritos</div><div class="menu-card-desc">Mexican fruit sodas</div></div><div class="menu-card-price">$1.75</div></div>
+    </div>
+
+    <!-- DESSERTS -->
+    <div class="menu-panel" id="tab-desserts">
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Sopapillas</div><div class="menu-card-desc">Warm fried dough with honey &amp; cinnamon</div></div><div class="menu-card-price">$2.50</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Flan</div><div class="menu-card-desc">Classic Mexican caramel custard</div></div><div class="menu-card-price">$2.00</div></div>
+      <div class="menu-card"><div class="menu-card-body"><div class="menu-card-name">Deep Fried Ice Cream</div><div class="menu-card-desc">Vanilla ice cream in a crispy golden shell</div></div><div class="menu-card-price">$3.95–$4.00</div></div>
+    </div>
+
+    <p style="text-align:center;margin-top:2.5rem;color:var(--muted);font-size:.875rem">
+      * Prices may vary. Call <a href="tel:9144496678" style="color:var(--red)">(914) 449-6678</a> or
+      <a href="https://order.toasttab.com/online/daniel-s-mexican-restaurant-57-kensico-road" target="_blank" style="color:var(--red)">order online</a> for current pricing.
+    </p>
+  </div>
+</section>
+
+<!-- SPECIALS BANNER -->
+<section id="specials">
+  <div class="container">
+    <p class="section-label reveal">Don't Miss</p>
+    <h2 class="section-title reveal delay-1" style="max-width:500px">House Favorites</h2>
+    <div class="divider reveal delay-2"></div>
+    <div class="specials-grid">
+      <div class="special-card reveal delay-1">
+        <div class="icon">🥩</div>
+        <h3>Daniel's T-Bone</h3>
+        <p>Our signature steak — chargrilled to perfection with all the fixings</p>
+        <div class="price">$11.50</div>
+      </div>
+      <div class="special-card reveal delay-2">
+        <div class="icon">🍹</div>
+        <h3>Cadillac Margarita</h3>
+        <p>Premium gold tequila, fresh lime, triple sec — shaken and served right</p>
+        <div class="price">$6.75</div>
+      </div>
+      <div class="special-card reveal delay-3">
+        <div class="icon">🌊</div>
+        <h3>7 Mares Soup</h3>
+        <p>Seven seafood varieties in one rich, bold broth — a true crowd-pleaser</p>
+        <div class="price">$14.95</div>
+      </div>
+      <div class="special-card reveal delay-4">
+        <div class="icon">🍦</div>
+        <h3>Fried Ice Cream</h3>
+        <p>End your meal on a high note — golden-fried vanilla perfection</p>
+        <div class="price">$3.95</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <p class="section-label reveal">Real Guest Experiences</p>
+    <h2 class="section-title reveal delay-1">What People Are Saying</h2>
+    <div class="divider reveal delay-2"></div>
+    <p class="section-sub reveal delay-3" style="color:#a8a29e;margin-bottom:2rem">Verified reviews from real customers on Yahoo Local &amp; Google.</p>
+
+    <div class="rating-summary reveal delay-4">
+      <div class="rating-big">4.8</div>
+      <div class="rating-right">
+        <div class="stars-row">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="rating-count">Based on recent customer reviews</div>
+      </div>
+      <div class="rating-divider"></div>
+      <div class="rating-platforms">
+        <span class="platform-badge"><span class="dot dot-yahoo"></span>Yahoo Local</span>
+        <span class="platform-badge"><span class="dot dot-google"></span>Google</span>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+
+      <div class="review-card reveal delay-1">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-quote">First time here at this family owned restaurant. Plenty of parking, immaculately clean, staff is very friendly and don't rush you — the fajitas were excellent.</p>
+        <div class="review-footer">
+          <div>
+            <div class="reviewer-name">John C.</div>
+            <div class="reviewer-date">April 2026</div>
+          </div>
+          <span class="review-source source-yahoo">Yahoo Local</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal delay-2">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-quote">There's nothing quite like the "first visit" magic when a restaurant gets everything right. Daniel's managed to balance a laid-back, casual ambiance with service that felt truly attentive.</p>
+        <div class="review-footer">
+          <div>
+            <div class="reviewer-name">Rick R.</div>
+            <div class="reviewer-date">March 2026</div>
+          </div>
+          <span class="review-source source-yahoo">Yahoo Local</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal delay-3">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-quote">Everything is authentic and delicious. I love that they have a ground beef option for many of their dishes.</p>
+        <div class="review-footer">
+          <div>
+            <div class="reviewer-name">Irene U.</div>
+            <div class="reviewer-date">April 2026</div>
+          </div>
+          <span class="review-source source-yahoo">Yahoo Local</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal delay-4">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-quote">If you're looking for an exceptional dining experience, this restaurant delivers on every level. The flavors are incredible and the service is attentive.</p>
+        <div class="review-footer">
+          <div>
+            <div class="reviewer-name">Google Reviewer</div>
+            <div class="reviewer-date">2026</div>
+          </div>
+          <span class="review-source source-google">Google</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal delay-5">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-quote">Ordered the guacamole and chips, enchiladas, and shrimp tacos — all of it was delicious. Authentic Mexican food done right, right here in Thornwood.</p>
+        <div class="review-footer">
+          <div>
+            <div class="reviewer-name">Local Guest</div>
+            <div class="reviewer-date">2025</div>
+          </div>
+          <span class="review-source source-yahoo">Yahoo Local</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal delay-6">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-quote">We decided to try this new addition to the neighborhood. We love Mexican food and the menu looked great. Plenty of parking and the atmosphere is warm and welcoming.</p>
+        <div class="review-footer">
+          <div>
+            <div class="reviewer-name">Gerrie S.</div>
+            <div class="reviewer-date">April 2025</div>
+          </div>
+          <span class="review-source source-yahoo">Yahoo Local</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reviews-cta reveal">
+      <a href="https://www.yelp.com/biz/daniel-s-mexican-restaurant-thornwood" target="_blank">Read more reviews on Yelp →</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS & LOCATION -->
+<section id="info">
+  <div class="container">
+    <p class="section-label reveal">Find Us</p>
+    <h2 class="section-title reveal delay-1">Hours &amp; Location</h2>
+    <div class="divider reveal delay-2"></div>
+    <div class="info-grid">
+      <div class="info-card reveal-left">
+        <h3>🕐 Hours</h3>
+        <div class="hours-row"><span class="day">Sunday</span><span class="time">12:00 PM – 10:00 PM</span></div>
+        <div class="hours-row"><span class="day">Monday</span><span class="time">12:00 PM – 10:00 PM</span></div>
+        <div class="hours-row"><span class="day">Tuesday</span><span class="time">12:00 PM – 10:00 PM</span></div>
+        <div class="hours-row"><span class="day">Wednesday</span><span class="time">12:00 PM – 10:00 PM</span></div>
+        <div class="hours-row"><span class="day">Thursday</span><span class="time">12:00 PM – 10:00 PM</span></div>
+        <div class="hours-row" style="color:var(--orange);font-weight:600"><span class="day" style="color:var(--orange)">Friday</span><span class="time">12:00 PM – 11:00 PM</span></div>
+        <div class="hours-row" style="color:var(--orange);font-weight:600"><span class="day" style="color:var(--orange)">Saturday</span><span class="time">12:00 PM – 11:00 PM</span></div>
+      </div>
+      <div class="info-card reveal-right">
+        <h3>📍 Location</h3>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.123!2d-73.7815!3d41.1234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2be5b5b5b5b5b%3A0x5b5b5b5b5b5b5b5b!2sDaniel's%20Mexican%20Restaurant!5e0!3m2!1sen!2sus!4v1"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <div class="address-block">
+          <strong>57 Kensico Rd, Thornwood, NY 10594</strong><br/>
+          <a href="tel:9144496678">(914) 449-6678</a><br/>
+          <a href="menu.html">Order Online →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Daniel's Mexican Restaurant</div>
+  <p>57 Kensico Rd · Thornwood, NY 10594 · <a href="tel:9144496678" style="color:var(--gold)">(914) 449-6678</a></p>
+  <div class="social-links">
+    <a href="https://www.facebook.com/danielsmexicanrestaurant" target="_blank" title="Facebook">f</a>
+    <a href="https://www.instagram.com/danielsmexicanrestaurant/" target="_blank" title="Instagram">ig</a>
+  </div>
+  <hr />
+  <small>© 2024 Daniel's Mexican Restaurant. All rights reserved.</small>
+</footer>
+
+<script>
+  /* ── Mobile nav toggle ── */
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  /* ── Menu tabs ── */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      const panel = document.getElementById('tab-' + this.dataset.tab);
+      panel.classList.add('active');
+      // stagger the newly-visible cards
+      panel.querySelectorAll('.menu-card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'opacity .35s ease, transform .35s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, i * 40);
+      });
+    });
+  });
+
+  /* ── Scroll progress bar ── */
+  const scrollBar = document.getElementById('scroll-bar');
+  function updateScrollBar() {
+    const doc = document.documentElement;
+    const pct = (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100;
+    scrollBar.style.width = pct + '%';
+  }
+
+  /* ── Nav background on scroll ── */
+  function updateNav() {
+    document.querySelector('nav').style.background =
+      window.scrollY > 50 ? 'rgba(28,18,7,0.98)' : 'rgba(28,18,7,0.92)';
+  }
+
+  /* ── Hero parallax ── */
+  const hero = document.getElementById('hero');
+  function updateParallax() {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      hero.style.backgroundPositionY = (50 + y * 0.25) + '%';
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    updateScrollBar();
+    updateNav();
+    updateParallax();
+  }, { passive: true });
+
+  /* ── Intersection Observer for reveal animations ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    observer.observe(el);
+  });
+
+  /* ── Trigger hero reveals immediately on load ── */
+  window.addEventListener('load', () => {
+    document.querySelectorAll('#hero .reveal').forEach(el => {
+      el.classList.add('visible');
+    });
+    // stagger initial menu cards
+    document.querySelectorAll('.menu-panel.active .menu-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity .4s ease, transform .4s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 300 + i * 50);
+    });
+  });
+</script>
+</body>
+</html>
