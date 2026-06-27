@@ -162,7 +162,7 @@
 
     /* PRODUCTS */
     .prod-section{background:var(--black);}
-    .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);padding:1px 3.5rem 3.5rem;margin:0;}
+    .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);padding:1px 3.5rem 3.5rem;margin:0;}
     .prod-card{background:var(--card);position:relative;}
     .prod-img-wrap{position:relative;overflow:hidden;}
     .prod-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(20%) contrast(1.08);transition:transform .6s ease,filter .4s;}
@@ -296,7 +296,7 @@
       #categories,.sec-head,.prod-section{padding-left:0;padding-right:0;}
       .cat-grid{grid-template-columns:repeat(2,1fr);}
       .prod-grid{padding:1px 1.5rem 3rem;}
-      .prod-grid{grid-template-columns:repeat(2,1fr);}
+      .prod-grid{grid-template-columns:repeat(3,1fr);}
       #statement{padding:5rem 2rem;}
       .stmt-body{grid-template-columns:1fr;}
       #feature{grid-template-columns:1fr;}
@@ -347,8 +347,7 @@
   <a href="#" class="n-logo">SOLACE <span>APPERAL</span></a>
   <ul class="n-links">
     <li><a href="#categories">Shop</a></li>
-    <li><a href="#new">New Drop</a></li>
-    <li><a href="#best">Best Sellers</a></li>
+    <li><a href="#new">Drop 001</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#" class="hot">Sale</a></li>
   </ul>
@@ -371,8 +370,7 @@
 <div class="mob-menu" id="mobMenu">
   <button class="mob-close" id="mobClose">×</button>
   <a href="#categories" onclick="closeMob()">Shop</a>
-  <a href="#new" onclick="closeMob()">New Drop</a>
-  <a href="#best" onclick="closeMob()">Best Sellers</a>
+  <a href="#new" onclick="closeMob()">Drop 001</a>
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#newsletter" onclick="closeMob()">Contact</a>
   <a href="#" onclick="closeMob()" class="hot">Sale</a>
@@ -505,14 +503,14 @@
   </div>
 </section>
 
-<!-- NEW DROP -->
+<!-- DROP 001 -->
 <section id="new" class="prod-section">
   <div class="sec-head">
     <div>
       <div class="sec-num">// 002</div>
-      <h2 class="sec-h">New Drop</h2>
+      <h2 class="sec-h">Drop 001</h2>
     </div>
-    <a href="#" class="sec-link">View All →</a>
+    <span class="sec-link" style="cursor:default;opacity:.5;">3 Pieces · Limited Run</span>
   </div>
   <div class="prod-grid">
     <div class="prod-card rv">
@@ -536,32 +534,13 @@
 
     <div class="prod-card rv d1">
       <div class="prod-img-wrap">
-        <span class="prod-badge badge-new">New Drop</span>
-        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        <img class="prod-img" src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=80" alt="Frequency Tee">
-        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-cat">002 / Tops</div>
-        <div class="prod-name">Frequency Tee</div>
-        <div class="prod-price-row"><span class="prod-price">$48</span></div>
-        <div class="prod-colors">
-          <span class="cdot on" style="background:#f0f0f0;border:1px solid #555;"></span>
-          <span class="cdot" style="background:#111;border:1px solid #444;"></span>
-          <span class="cdot" style="background:#d4ff00;border:1px solid #aaa;"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="prod-card rv d2">
-      <div class="prod-img-wrap">
         <span class="prod-badge badge-ltd">Limited</span>
         <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
         <img class="prod-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Cargo Pant">
         <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
       </div>
       <div class="prod-info">
-        <div class="prod-cat">003 / Bottoms</div>
+        <div class="prod-cat">002 / Bottoms</div>
         <div class="prod-name">Signal Cargo Pant</div>
         <div class="prod-price-row"><span class="prod-price">$115</span></div>
         <div class="prod-colors">
@@ -571,7 +550,7 @@
       </div>
     </div>
 
-    <div class="prod-card rv d3">
+    <div class="prod-card rv d2">
       <div class="prod-img-wrap">
         <span class="prod-badge badge-new">New Drop</span>
         <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
@@ -579,7 +558,7 @@
         <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
       </div>
       <div class="prod-info">
-        <div class="prod-cat">004 / Outerwear</div>
+        <div class="prod-cat">003 / Outerwear</div>
         <div class="prod-name">Void Bomber</div>
         <div class="prod-price-row"><span class="prod-price">$185</span></div>
         <div class="prod-colors">
@@ -650,77 +629,6 @@
     <div class="hero-btns">
       <a href="#" class="btn btn-lime">Add to Cart — $185</a>
       <a href="#" class="btn btn-ghost">Size Guide</a>
-    </div>
-  </div>
-</section>
-
-<!-- BEST SELLERS -->
-<section id="best" class="prod-section">
-  <div class="sec-head">
-    <div>
-      <div class="sec-num">// 003</div>
-      <h2 class="sec-h">Best Sellers</h2>
-    </div>
-    <a href="#" class="sec-link">View All →</a>
-  </div>
-  <div class="prod-grid">
-    <div class="prod-card rv">
-      <div class="prod-img-wrap">
-        <span class="prod-badge badge-drop">Top Seller</span>
-        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        <img class="prod-img" src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=500&q=80" alt="Oversize Coat">
-        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-cat">005 / Outerwear</div>
-        <div class="prod-name">Oversize Tech Coat</div>
-        <div class="prod-price-row"><span class="prod-price">$245</span></div>
-        <div class="prod-colors"><span class="cdot on" style="background:#1a1a1a;border:1px solid #444;"></span><span class="cdot" style="background:#ccc;border:1px solid #aaa;"></span></div>
-      </div>
-    </div>
-
-    <div class="prod-card rv d1">
-      <div class="prod-img-wrap">
-        <span class="prod-badge badge-sold">Sold Out</span>
-        <img class="prod-img" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=500&q=80" alt="Signal Set">
-        <div class="prod-actions"><button class="prod-quick" disabled style="opacity:.5;cursor:not-allowed;">Sold Out</button></div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-cat">006 / Sets</div>
-        <div class="prod-name">The Signal Set</div>
-        <div class="prod-price-row"><span class="prod-price" style="color:var(--mid);">$165</span></div>
-        <div class="prod-colors"><span class="cdot on" style="background:#333;"></span></div>
-      </div>
-    </div>
-
-    <div class="prod-card rv d2">
-      <div class="prod-img-wrap">
-        <span class="prod-badge badge-drop">Top Seller</span>
-        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        <img class="prod-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Raw Denim">
-        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-cat">007 / Bottoms</div>
-        <div class="prod-name">Raw Denim 001</div>
-        <div class="prod-price-row"><span class="prod-price prod-price-sale">$89</span><span class="prod-price-orig">$140</span></div>
-        <div class="prod-colors"><span class="cdot on" style="background:#1a2a40;"></span><span class="cdot" style="background:#111;border:1px solid #444;"></span></div>
-      </div>
-    </div>
-
-    <div class="prod-card rv d3">
-      <div class="prod-img-wrap">
-        <span class="prod-badge badge-new">New Drop</span>
-        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        <img class="prod-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=500&q=80" alt="Noise Long Sleeve">
-        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
-      </div>
-      <div class="prod-info">
-        <div class="prod-cat">008 / Tops</div>
-        <div class="prod-name">Noise Long Sleeve</div>
-        <div class="prod-price-row"><span class="prod-price">$62</span></div>
-        <div class="prod-colors"><span class="cdot on" style="background:#f0f0f0;border:1px solid #555;"></span><span class="cdot" style="background:#111;border:1px solid #444;"></span><span class="cdot" style="background:#d4ff00;"></span></div>
-      </div>
     </div>
   </div>
 </section>
