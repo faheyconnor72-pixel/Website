@@ -69,8 +69,7 @@
     .neb-3{width:550px;height:550px;background:radial-gradient(circle,rgba(200,35,120,.12) 0%,transparent 65%);filter:blur(75px);top:25%;left:18%;}
     .neb-4{width:380px;height:380px;background:radial-gradient(circle,rgba(10,170,210,.09) 0%,transparent 65%);filter:blur(60px);top:8%;left:42%;}
     /* PLANET */
-    .planet-wrap{position:absolute;right:3%;top:50%;transform:translateY(-50%);z-index:6;pointer-events:auto;cursor:grab;perspective:1000px;}
-    .planet-wrap:active{cursor:grabbing;}
+    .planet-wrap{position:absolute;right:3%;top:50%;transform:translateY(-50%);z-index:6;pointer-events:none;}
     .planet-float{animation:planet-float 9s ease-in-out infinite;}
     .planet-orb{position:relative;width:clamp(130px,18vw,260px);height:clamp(130px,18vw,260px);border-radius:50%;
       background:radial-gradient(circle at 36% 30%,rgba(210,140,255,.95) 0%,rgba(140,55,230,.9) 18%,rgba(75,22,170,.96) 42%,rgba(28,8,75,1) 68%,rgba(8,3,22,1) 90%);
@@ -149,15 +148,12 @@
     .sec-link:hover{color:var(--lime);border-color:var(--lime);}
 
     /* SHOP */
-    #shop{background:#fff;}
-    .shop-wrap{display:grid;grid-template-columns:175px 1fr;min-height:70vh;}
-    .shop-sidebar{padding:3rem 1.5rem 3rem 3.5rem;border-right:1px solid #e5e5e5;position:sticky;top:62px;align-self:start;}
-    .shop-cat{font-family:'Space Grotesk',sans-serif;font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;padding:.48rem 0;cursor:pointer;color:#bbb;transition:color .15s;line-height:1.5;user-select:none;}
-    .shop-cat.active{color:#000;font-weight:700;}
-    .shop-cat:hover:not(.active){color:#666;}
-    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e5e5;align-content:start;}
+    #shop{background:#fff;padding:0;}
+    .shop-hd{padding:3rem 3.5rem 2rem;border-bottom:1px solid #e5e5e5;display:flex;align-items:baseline;gap:1.5rem;}
+    .shop-hd-title{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.06em;color:#000;line-height:1;}
+    .shop-hd-sub{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:#aaa;}
+    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e5e5;}
     .shop-card{background:#fff;position:relative;overflow:hidden;cursor:pointer;}
-    .shop-card[style*="none"]{display:none!important;}
     .shop-img-wrap{position:relative;overflow:hidden;}
     .shop-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .55s ease;}
     .shop-card:hover .shop-img{transform:scale(1.04);}
@@ -454,50 +450,46 @@
 
 <!-- SHOP -->
 <section id="shop">
-  <div class="shop-wrap">
-    <aside class="shop-sidebar">
-      <div class="shop-cat active" onclick="filterShop(this,'all')">All</div>
-      <div class="shop-cat" onclick="filterShop(this,'hoodies')">Hoodies</div>
-      <div class="shop-cat" onclick="filterShop(this,'bottoms')">Bottoms</div>
-      <div class="shop-cat" onclick="filterShop(this,'outerwear')">Outerwear</div>
-    </aside>
-    <div class="shop-grid" id="shopGrid">
+  <div class="shop-hd">
+    <span class="shop-hd-title">Drop 001</span>
+    <span class="shop-hd-sub">3 pieces · Fall 2026</span>
+  </div>
+  <div class="shop-grid">
 
-      <div class="shop-card" data-cat="hoodies">
-        <div class="shop-img-wrap">
-          <img class="shop-img" src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=700&q=80" alt="The Static Hoodie">
-          <button class="shop-qadd">Quick Add</button>
-        </div>
-        <div class="shop-body">
-          <div class="shop-name">The Static Hoodie</div>
-          <div class="shop-price">$95</div>
-        </div>
+    <div class="shop-card">
+      <div class="shop-img-wrap">
+        <img class="shop-img" src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=700&q=80" alt="The Static Hoodie">
+        <button class="shop-qadd">Quick Add</button>
       </div>
-
-      <div class="shop-card" data-cat="bottoms">
-        <div class="shop-img-wrap">
-          <img class="shop-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=80" alt="Signal Cargo Pant">
-          <button class="shop-qadd">Quick Add</button>
-        </div>
-        <div class="shop-body">
-          <div class="shop-name">Signal Cargo Pant</div>
-          <div class="shop-price">$115</div>
-        </div>
+      <div class="shop-body">
+        <div class="shop-name">The Static Hoodie</div>
+        <div class="shop-price">$95</div>
       </div>
-
-      <div class="shop-card" data-cat="outerwear">
-        <span class="shop-sold">SOLD OUT</span>
-        <div class="shop-img-wrap">
-          <img class="shop-img" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80" alt="Void Bomber">
-          <button class="shop-qadd" disabled style="opacity:.5;cursor:not-allowed;">Sold Out</button>
-        </div>
-        <div class="shop-body">
-          <div class="shop-name">Void Bomber</div>
-          <div class="shop-price" style="color:#bbb;">$185</div>
-        </div>
-      </div>
-
     </div>
+
+    <div class="shop-card">
+      <div class="shop-img-wrap">
+        <img class="shop-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=80" alt="Signal Cargo Pant">
+        <button class="shop-qadd">Quick Add</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-name">Signal Cargo Pant</div>
+        <div class="shop-price">$115</div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <span class="shop-sold">SOLD OUT</span>
+      <div class="shop-img-wrap">
+        <img class="shop-img" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80" alt="Void Bomber">
+        <button class="shop-qadd" disabled style="opacity:.5;cursor:not-allowed;">Sold Out</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-name">Void Bomber</div>
+        <div class="shop-price" style="color:#bbb;">$185</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -589,15 +581,6 @@
   document.getElementById('mobClose').addEventListener('click',()=>mobMenu.classList.remove('open'));
   function closeMob(){mobMenu.classList.remove('open');}
 
-  /* Shop filter */
-  function filterShop(el,cat){
-    document.querySelectorAll('.shop-cat').forEach(c=>c.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('.shop-card').forEach(card=>{
-      card.style.display=(cat==='all'||card.dataset.cat===cat)?'':'none';
-    });
-  }
-
   /* Cart */
   let cnt=0;
   const badge=document.getElementById('cartBadge');
@@ -626,34 +609,6 @@
     entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
   },{threshold:.07});
   document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-
-  /* Planet spin */
-  (function(){
-    const wrap=document.getElementById('planetWrap');
-    const orb=document.getElementById('planetOrb');
-    if(!wrap||!orb) return;
-    let dragging=false,startX=0,rotY=0,vel=0,raf=null;
-    function applyRot(y){orb.style.transform=`rotateY(${y}deg)`;}
-    function coast(){
-      if(Math.abs(vel)<.05) return;
-      vel*=.96;rotY+=vel;
-      applyRot(rotY);
-      raf=requestAnimationFrame(coast);
-    }
-    wrap.addEventListener('pointerdown',e=>{
-      dragging=true;startX=e.clientX;vel=0;
-      wrap.setPointerCapture(e.pointerId);
-      if(raf) cancelAnimationFrame(raf);
-    });
-    wrap.addEventListener('pointermove',e=>{
-      if(!dragging) return;
-      vel=(e.clientX-startX)*.45;
-      rotY+=vel;startX=e.clientX;
-      applyRot(rotY);
-    });
-    wrap.addEventListener('pointerup',()=>{dragging=false;coast();});
-    wrap.addEventListener('pointercancel',()=>{dragging=false;});
-  })();
 
   /* Star field — Rolls-Royce ceiling density */
   (function(){
