@@ -69,7 +69,7 @@
     .neb-3{width:550px;height:550px;background:radial-gradient(circle,rgba(200,35,120,.12) 0%,transparent 65%);filter:blur(75px);top:25%;left:18%;}
     .neb-4{width:380px;height:380px;background:radial-gradient(circle,rgba(10,170,210,.09) 0%,transparent 65%);filter:blur(60px);top:8%;left:42%;}
     /* PLANET */
-    .planet-wrap{position:absolute;right:14%;top:50%;transform:translateY(-50%);z-index:6;pointer-events:auto;cursor:grab;perspective:1000px;}
+    .planet-wrap{position:absolute;right:3%;top:50%;transform:translateY(-50%);z-index:6;pointer-events:auto;cursor:grab;perspective:1000px;}
     .planet-wrap:active{cursor:grabbing;}
     .planet-float{animation:planet-float 9s ease-in-out infinite;}
     .planet-orb{position:relative;width:clamp(130px,18vw,260px);height:clamp(130px,18vw,260px);border-radius:50%;
@@ -109,8 +109,8 @@
     .hero-meta-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse-beacon 2s ease-in-out infinite;}
     .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,22rem);line-height:.88;letter-spacing:.02em;color:var(--white);display:block;margin-bottom:-.25rem;text-shadow:0 0 80px rgba(191,95,255,.2),0 0 180px rgba(140,60,255,.12);}
     /* LOGO */
-    .hero-logo-wrap{display:flex;justify-content:center;align-items:center;padding:3rem 0 1rem;position:relative;z-index:4;}
-    .hero-logo{width:clamp(600px,98vw,1500px);filter:invert(1) drop-shadow(0 0 14px rgba(136,68,204,.4)) drop-shadow(0 0 40px rgba(100,40,180,.2));mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 84% 70% at 50% 50%,#000 28%,rgba(0,0,0,.8) 50%,rgba(0,0,0,.3) 68%,transparent 86%);mask-image:radial-gradient(ellipse 84% 70% at 50% 50%,#000 28%,rgba(0,0,0,.8) 50%,rgba(0,0,0,.3) 68%,transparent 86%);animation:logo-enter 1.3s cubic-bezier(.16,1,.3,1) .1s both,logo-float 8s ease-in-out 1.5s infinite;}
+    .hero-logo-wrap{display:flex;justify-content:flex-start;align-items:center;padding:3rem 0 1rem 2rem;position:relative;z-index:4;}
+    .hero-logo{width:clamp(560px,88vw,1300px);opacity:.88;filter:invert(1) drop-shadow(0 0 10px rgba(136,68,204,.3)) drop-shadow(0 0 32px rgba(100,40,180,.15));mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 80% 68% at 42% 50%,#000 22%,rgba(0,0,0,.78) 44%,rgba(0,0,0,.28) 64%,transparent 82%);mask-image:radial-gradient(ellipse 80% 68% at 42% 50%,#000 22%,rgba(0,0,0,.78) 44%,rgba(0,0,0,.28) 64%,transparent 82%);animation:logo-enter 1.3s cubic-bezier(.16,1,.3,1) .1s both,logo-float 8s ease-in-out 1.5s infinite;}
     @keyframes logo-enter{from{opacity:0;transform:scale(.88) translateY(20px);filter:invert(1) brightness(2) drop-shadow(0 0 50px rgba(136,68,204,.8));}to{opacity:1;transform:none;filter:invert(1) drop-shadow(0 0 14px rgba(136,68,204,.4)) drop-shadow(0 0 40px rgba(100,40,180,.2));}}
     @keyframes logo-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
     /* Hero entrance animations */
@@ -497,66 +497,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- STATEMENT -->
-<section id="statement">
-  <div class="stmt-inner">
-    <div class="stmt-tag">Who We Are</div>
-    <h2 class="stmt-h">
-      BUILT FOR<br>
-      THE STREET.<br>
-      <span class="outline">WORN BY FEW.</span>
-    </h2>
-    <div class="stmt-body">
-      <p class="stmt-p">
-        <strong>Solace Apperal isn't a trend.</strong> It's a frequency. We design for people who move through the world on their own terms — with purpose, with edge, and without apology.
-        <br><br>
-        Every piece in every drop is built from raw materials, cut for comfort, and finished for the long run. We don't chase hype. We set it.
-      </p>
-      <div>
-        <div class="stmt-stats">
-          <div class="stmt-stat">
-            <div class="stmt-stat-num">001</div>
-            <div class="stmt-stat-label">Active Drop</div>
-          </div>
-          <div class="stmt-stat">
-            <div class="stmt-stat-num">40</div>
-            <div class="stmt-stat-label">Units Per Style</div>
-          </div>
-          <div class="stmt-stat">
-            <div class="stmt-stat-num">0</div>
-            <div class="stmt-stat-label">Restocks. Ever.</div>
-          </div>
-        </div>
-        <div class="stmt-cta">
-          <a href="#categories" class="btn btn-white">Browse All Styles</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-decor rv">
-    <div class="about-img-wrap">
-      <img class="about-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80" alt="Solace Studio">
-    </div>
-  </div>
-  <div>
-    <div class="about-label rv">// About</div>
-    <h2 class="about-h rv d1">Made For<br>The Margins.</h2>
-    <p class="about-p rv d2"><strong>Solace Apperal was built in 2023</strong> for people who don't fit the mold. Not athletic wear. Not luxury. Not fast fashion. Something else entirely.</p>
-    <p class="about-p rv d2">We design in small runs, cut from deadstock and heavyweight natural fabrics. No seasonal collections. No lookbooks. Just drops — when they're ready and not a day before.</p>
-    <div class="about-specs rv d3">
-      <div class="spec-row"><span class="spec-key">Founded</span><span class="spec-val">2023</span></div>
-      <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">Brooklyn, NY</span></div>
-      <div class="spec-row"><span class="spec-key">Run Size</span><span class="spec-val">40 units max</span></div>
-      <div class="spec-row"><span class="spec-key">Restocks</span><span class="spec-val lime">Never.</span></div>
-      <div class="spec-row"><span class="spec-key">Fabric</span><span class="spec-val">Deadstock Only</span></div>
     </div>
   </div>
 </section>
