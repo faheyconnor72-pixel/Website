@@ -44,6 +44,8 @@
     .n-right{display:flex;align-items:center;gap:.5rem;}
     .n-icon{background:none;border:none;color:var(--off);cursor:pointer;padding:.55rem;display:flex;align-items:center;justify-content:center;transition:color .2s;position:relative;}
     .n-icon:hover{color:var(--white);}
+    .n-ig{color:var(--lime) !important;border:1px solid rgba(136,68,204,.35);border-radius:4px;}
+    .n-ig:hover{color:var(--white) !important;border-color:var(--lime);box-shadow:0 0 12px rgba(136,68,204,.4);}
     .n-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
     .cart-badge{position:absolute;top:2px;right:2px;background:var(--lime);color:var(--black);font-size:.42rem;font-weight:700;width:14px;height:14px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Space Mono',monospace;}
     .n-tog{display:none;background:none;border:none;cursor:pointer;padding:.5rem;flex-direction:column;gap:4px;}
@@ -244,8 +246,10 @@
     .f-brand span{color:var(--lime);}
     .f-tagline{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.1em;color:var(--mid);line-height:1.7;max-width:220px;margin-bottom:1.5rem;}
     .f-socials{display:flex;gap:.5rem;}
-    .f-soc{width:32px;height:32px;border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;color:var(--mid);text-decoration:none;font-size:.52rem;font-weight:700;letter-spacing:.04em;font-family:'Space Mono',monospace;transition:border-color .2s,color .2s;}
+    .f-soc{width:36px;height:36px;border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;color:var(--mid);text-decoration:none;font-size:.52rem;font-weight:700;letter-spacing:.04em;font-family:'Space Mono',monospace;transition:border-color .2s,color .2s,box-shadow .2s;}
     .f-soc:hover{border-color:var(--lime);color:var(--lime);}
+    .f-soc-ig{border-color:rgba(136,68,204,.5);color:var(--lime);font-size:.48rem;}
+    .f-soc-ig:hover{box-shadow:0 0 14px rgba(136,68,204,.5);}
     .f-col h4{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:1.25rem;}
     .f-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem;}
     .f-col a{font-size:.75rem;color:var(--mid);text-decoration:none;font-weight:400;transition:color .2s;letter-spacing:.02em;}
@@ -338,6 +342,9 @@
     <li><a href="#" class="hot">Sale</a></li>
   </ul>
   <div class="n-right">
+    <a class="n-icon n-ig" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
     <button class="n-icon" aria-label="Search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
@@ -360,6 +367,7 @@
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#newsletter" onclick="closeMob()">Contact</a>
   <a href="#" onclick="closeMob()" class="hot">Sale</a>
+  <a href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener" style="color:var(--lime);">@solace.apperal</a>
 </div>
 
 <!-- HERO -->
@@ -523,7 +531,7 @@
       <div class="f-brand">SOLACE <span>APPERAL</span></div>
       <div class="f-tagline">Street culture. Raw materials. Zero compromise. Brooklyn, NY · Est. 2023</div>
       <div class="f-socials">
-        <a class="f-soc" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener">IG</a>
+        <a class="f-soc f-soc-ig" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener" title="@solace.apperal">IG</a>
         <a class="f-soc" href="#">TK</a>
         <a class="f-soc" href="#">X</a>
         <a class="f-soc" href="#">DC</a>
