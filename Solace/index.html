@@ -281,36 +281,71 @@
     /* CART DRAWER */
     .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:800;opacity:0;pointer-events:none;transition:opacity .3s ease;}
     .cart-overlay.open{opacity:1;pointer-events:all;}
-    .cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--ink);border-left:1px solid var(--bd);z-index:900;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);}
+    .cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--ink);border-left:1px solid var(--bd);z-index:900;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);}
     .cart-drawer.open{transform:none;}
-    .cart-dr-head{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.75rem;border-bottom:1px solid var(--bd);}
-    .cart-dr-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.08em;color:var(--white);}
-    .cart-dr-count{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.14em;color:var(--lime);background:rgba(136,68,204,.15);border:1px solid rgba(136,68,204,.3);padding:.2rem .55rem;border-radius:2px;}
+    .cart-dr-head{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.75rem;border-bottom:1px solid var(--bd);flex-shrink:0;}
+    .cart-dr-left{display:flex;align-items:center;gap:.75rem;}
+    .cart-back{background:none;border:none;color:var(--mid);cursor:pointer;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:.3rem;transition:color .2s;padding:0;}
+    .cart-back:hover{color:var(--white);}
+    .cart-dr-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:var(--white);}
+    .cart-dr-count{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.14em;color:var(--lime);background:rgba(136,68,204,.15);border:1px solid rgba(136,68,204,.3);padding:.18rem .5rem;border-radius:2px;}
     .cart-dr-close{background:none;border:none;color:var(--off);cursor:pointer;font-size:1.4rem;line-height:1;padding:.25rem .4rem;transition:color .2s;}
     .cart-dr-close:hover{color:var(--white);}
     .cart-dr-body{flex:1;overflow-y:auto;padding:1.25rem 1.75rem;}
+    .cart-dr-foot{padding:1.25rem 1.75rem;border-top:1px solid var(--bd);flex-shrink:0;}
+    /* Cart items */
     .cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;text-align:center;}
     .cart-empty-icon{opacity:.18;}
     .cart-empty-icon svg{width:52px;height:52px;stroke:var(--white);}
     .cart-empty-msg{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);}
     .cart-item{display:grid;grid-template-columns:72px 1fr auto;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--bd);align-items:start;}
     .cart-item-img{width:72px;height:88px;object-fit:cover;display:block;}
-    .cart-item-name{font-family:'Space Grotesk',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--white);margin-bottom:.3rem;line-height:1.3;}
-    .cart-item-price{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--mid);}
-    .cart-item-qty{display:flex;align-items:center;gap:.6rem;margin-top:.65rem;}
+    .cart-item-name{font-family:'Space Grotesk',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--white);margin-bottom:.25rem;line-height:1.3;}
+    .cart-item-price{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--mid);}
+    .cart-item-qty{display:flex;align-items:center;gap:.6rem;margin-top:.6rem;}
     .qty-btn{background:none;border:1px solid var(--bd2);color:var(--off);width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;line-height:1;transition:border-color .2s,color .2s;border-radius:2px;}
     .qty-btn:hover{border-color:var(--lime);color:var(--lime);}
     .qty-num{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--white);min-width:18px;text-align:center;}
-    .cart-item-remove{background:none;border:none;color:var(--dim);cursor:pointer;font-size:.7rem;padding:.2rem;transition:color .2s;font-family:'Space Mono',monospace;letter-spacing:.06em;margin-top:.15rem;}
+    .cart-item-remove{background:none;border:none;color:var(--dim);cursor:pointer;font-size:.65rem;padding:.2rem;transition:color .2s;font-family:'Space Mono',monospace;letter-spacing:.06em;margin-top:.15rem;}
     .cart-item-remove:hover{color:rgba(255,80,80,.8);}
-    .cart-dr-foot{padding:1.5rem 1.75rem;border-top:1px solid var(--bd);}
-    .cart-subtotal{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;}
-    .cart-subtotal-label{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);}
+    /* Cart footer */
+    .cart-subtotal{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;}
+    .cart-subtotal-label{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);}
     .cart-subtotal-val{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:var(--white);}
-    .cart-checkout{display:block;width:100%;padding:1.1rem;background:var(--lime);color:var(--black);font-family:'Space Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s,box-shadow .2s;text-align:center;}
-    .cart-checkout:hover{background:#a040e0;color:var(--white);box-shadow:0 0 20px rgba(136,68,204,.45);}
-    .cart-checkout:disabled{background:var(--dim);color:var(--mid);cursor:not-allowed;box-shadow:none;}
-    .cart-note{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.08em;color:var(--dim);text-align:center;margin-top:.85rem;line-height:1.7;}
+    .cart-cta{display:block;width:100%;padding:1rem;background:var(--lime);color:var(--black);font-family:'Space Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s,box-shadow .2s;text-align:center;}
+    .cart-cta:hover{background:#a040e0;color:var(--white);box-shadow:0 0 20px rgba(136,68,204,.45);}
+    .cart-cta:disabled{background:var(--dim);color:var(--mid);cursor:not-allowed;box-shadow:none;}
+    .cart-note{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.08em;color:var(--dim);text-align:center;margin-top:.75rem;line-height:1.7;}
+    /* Checkout form */
+    .co-section{margin-bottom:1.4rem;}
+    .co-section-label{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:.8rem;display:flex;align-items:center;gap:.45rem;}
+    .co-section-label::before{content:'';width:10px;height:1px;background:var(--lime);}
+    .co-row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.55rem;}
+    .co-row.full{grid-template-columns:1fr;}
+    .co-field{display:flex;flex-direction:column;gap:.28rem;}
+    .co-label{font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);}
+    .co-input{background:rgba(240,240,240,.04);border:1px solid var(--bd2);color:var(--white);padding:.72rem .9rem;font-family:'Space Mono',monospace;font-size:.65rem;outline:none;transition:border-color .2s;width:100%;}
+    .co-input:focus{border-color:var(--lime);}
+    .co-input::placeholder{color:var(--dim);}
+    /* Order summary inside checkout */
+    .co-summary{background:rgba(240,240,240,.03);border:1px solid var(--bd);padding:.9rem 1rem;margin-bottom:1.1rem;border-radius:2px;}
+    .co-summary-label{font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:.65rem;}
+    .co-summary-item{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.58rem;color:var(--off);padding:.3rem 0;border-bottom:1px solid var(--bd);}
+    .co-summary-item:last-of-type{border-bottom:none;}
+    .co-summary-item-name{color:var(--white);}
+    .co-total-row{display:flex;justify-content:space-between;align-items:baseline;padding-top:.65rem;margin-top:.3rem;border-top:1px solid var(--bd2);}
+    .co-total-label{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);}
+    .co-total-val{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.06em;color:var(--white);}
+    /* Confirmation */
+    .confirm-inner{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2.5rem 1rem 1rem;}
+    .confirm-icon{width:58px;height:58px;background:rgba(136,68,204,.12);border:1.5px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;}
+    .confirm-icon svg{width:26px;height:26px;stroke:var(--lime);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+    .confirm-h{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.06em;color:var(--white);margin-bottom:.5rem;}
+    .confirm-sub{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:var(--mid);line-height:1.9;margin-bottom:1.25rem;max-width:280px;}
+    .confirm-num{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.14em;color:var(--lime);border:1px solid rgba(136,68,204,.3);padding:.45rem 1.1rem;border-radius:2px;margin-bottom:1.5rem;}
+    .confirm-steps{text-align:left;width:100%;border-top:1px solid var(--bd);padding-top:1.25rem;}
+    .confirm-step{display:flex;gap:.75rem;margin-bottom:.85rem;font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.06em;color:var(--mid);line-height:1.7;}
+    .confirm-step-num{color:var(--lime);font-weight:700;flex-shrink:0;}
 
     /* SIZE SELECTOR */
     .size-row{display:flex;align-items:center;gap:.75rem;margin:.85rem 0 .75rem;}
@@ -659,19 +694,17 @@
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-dr-head">
-    <span class="cart-dr-title">Your Cart</span>
-    <span class="cart-dr-count" id="cartDrCount">0 items</span>
-    <button class="cart-dr-close" id="cartDrClose">×</button>
+    <div class="cart-dr-left">
+      <button class="cart-back" id="cartBack" style="display:none">← Back</button>
+      <span class="cart-dr-title" id="cartDrTitle">Your Cart</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.65rem;">
+      <span class="cart-dr-count" id="cartDrCount">0 items</span>
+      <button class="cart-dr-close" id="cartDrClose">×</button>
+    </div>
   </div>
   <div class="cart-dr-body" id="cartDrBody"></div>
-  <div class="cart-dr-foot">
-    <div class="cart-subtotal">
-      <span class="cart-subtotal-label">Subtotal</span>
-      <span class="cart-subtotal-val" id="cartSubtotal">$0</span>
-    </div>
-    <button class="cart-checkout" id="cartCheckout" disabled>Checkout</button>
-    <div class="cart-note">Shipping calculated at checkout · Free over $150</div>
-  </div>
+  <div class="cart-dr-foot" id="cartDrFoot"></div>
 </div>
 
 <!-- FOOTER -->
@@ -739,43 +772,58 @@
   document.getElementById('mobClose').addEventListener('click',()=>mobMenu.classList.remove('open'));
   function closeMob(){mobMenu.classList.remove('open');}
 
-  /* Cart */
+  /* ── CART ── */
   const PRODUCTS={
     'Solace Tee':{price:45,img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=80'},
     'Void Cap':{price:40,img:'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=200&q=80'},
     'Signal Longsleeve':{price:60,img:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=200&q=80'},
   };
   let cart=[];
+  let drawerView='cart'; // 'cart' | 'checkout' | 'confirm'
 
   const badge=document.getElementById('cartBadge');
   const cartOverlay=document.getElementById('cartOverlay');
   const cartDrawer=document.getElementById('cartDrawer');
   const cartDrBody=document.getElementById('cartDrBody');
+  const cartDrFoot=document.getElementById('cartDrFoot');
   const cartDrCount=document.getElementById('cartDrCount');
-  const cartSubtotal=document.getElementById('cartSubtotal');
-  const cartCheckout=document.getElementById('cartCheckout');
+  const cartDrTitle=document.getElementById('cartDrTitle');
+  const cartBack=document.getElementById('cartBack');
 
-  function openCart(){cartDrawer.classList.add('open');cartOverlay.classList.add('open');document.body.style.overflow='hidden';}
+  function openCart(){cartDrawer.classList.add('open');cartOverlay.classList.add('open');document.body.style.overflow='hidden';showView('cart');}
   function closeCart(){cartDrawer.classList.remove('open');cartOverlay.classList.remove('open');document.body.style.overflow='';}
 
   document.getElementById('navCart').addEventListener('click',openCart);
   document.getElementById('cartDrClose').addEventListener('click',closeCart);
   cartOverlay.addEventListener('click',closeCart);
+  cartBack.addEventListener('click',()=>showView('cart'));
 
-  function renderCart(){
-    const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
-    const totalQty=cart.reduce((s,i)=>s+i.qty,0);
-    badge.textContent=totalQty;
-    badge.style.display=totalQty>0?'flex':'none';
-    cartDrCount.textContent=totalQty===0?'0 items':totalQty===1?'1 item':`${totalQty} items`;
-    cartSubtotal.textContent='$'+total;
-    cartCheckout.disabled=cart.length===0;
+  function cartTotal(){return cart.reduce((s,i)=>s+i.price*i.qty,0);}
+  function cartQty(){return cart.reduce((s,i)=>s+i.qty,0);}
 
+  function updateBadge(){
+    const q=cartQty();
+    badge.textContent=q;
+    badge.style.display=q>0?'flex':'none';
+    const q2=cart.length===0?'0 items':q===1?'1 item':`${q} items`;
+    cartDrCount.textContent=q2;
+  }
+
+  function showView(v){
+    drawerView=v;
+    cartBack.style.display=v==='cart'?'none':'flex';
+    if(v==='cart'){cartDrTitle.textContent='Your Cart';renderCartView();}
+    else if(v==='checkout'){cartDrTitle.textContent='Checkout';renderCheckoutView();}
+    else if(v==='confirm'){cartDrTitle.textContent='Confirmed';renderConfirmView();}
+  }
+
+  function renderCartView(){
+    updateBadge();
     if(cart.length===0){
       cartDrBody.innerHTML=`<div class="cart-empty"><div class="cart-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div class="cart-empty-msg">Your cart is empty</div></div>`;
+      cartDrFoot.innerHTML=`<button class="cart-cta" disabled>Checkout →</button><div class="cart-note">Free shipping on orders over $100</div>`;
       return;
     }
-
     cartDrBody.innerHTML=cart.map((item,idx)=>`
       <div class="cart-item">
         <img class="cart-item-img" src="${item.img}" alt="${item.name}">
@@ -789,37 +837,106 @@
           </div>
         </div>
         <button class="cart-item-remove" onclick="removeItem(${idx})">Remove</button>
+      </div>`).join('');
+    cartDrFoot.innerHTML=`
+      <div class="cart-subtotal">
+        <span class="cart-subtotal-label">Subtotal</span>
+        <span class="cart-subtotal-val">$${cartTotal()}</span>
       </div>
-    `).join('');
+      <button class="cart-cta" onclick="showView('checkout')">Checkout →</button>
+      <div class="cart-note">Free shipping on orders over $100</div>`;
+  }
+
+  function renderCheckoutView(){
+    const summaryItems=cart.map(i=>`
+      <div class="co-summary-item">
+        <span class="co-summary-item-name">${i.name} <span style="color:var(--mid);font-size:.5rem">×${i.qty} · ${i.size}</span></span>
+        <span>$${i.price*i.qty}</span>
+      </div>`).join('');
+    cartDrBody.innerHTML=`
+      <form id="coForm" onsubmit="submitOrder(event)">
+        <div class="co-section">
+          <div class="co-section-label">Contact</div>
+          <div class="co-row full"><div class="co-field"><label class="co-label">Full Name</label><input class="co-input" name="name" placeholder="John Doe" required autocomplete="name"></div></div>
+          <div style="height:.55rem"></div>
+          <div class="co-row">
+            <div class="co-field"><label class="co-label">Email</label><input class="co-input" type="email" name="email" placeholder="you@email.com" required autocomplete="email"></div>
+            <div class="co-field"><label class="co-label">Phone</label><input class="co-input" type="tel" name="phone" placeholder="555-0100" autocomplete="tel"></div>
+          </div>
+        </div>
+        <div class="co-section">
+          <div class="co-section-label">Shipping Address</div>
+          <div class="co-row full"><div class="co-field"><label class="co-label">Street Address</label><input class="co-input" name="address" placeholder="123 Main St" required autocomplete="street-address"></div></div>
+          <div style="height:.55rem"></div>
+          <div class="co-row full"><div class="co-field"><label class="co-label">City</label><input class="co-input" name="city" placeholder="New York" required autocomplete="address-level2"></div></div>
+          <div style="height:.55rem"></div>
+          <div class="co-row">
+            <div class="co-field"><label class="co-label">State</label><input class="co-input" name="state" placeholder="NY" required autocomplete="address-level1"></div>
+            <div class="co-field"><label class="co-label">ZIP</label><input class="co-input" name="zip" placeholder="10001" required autocomplete="postal-code"></div>
+          </div>
+        </div>
+        <div class="co-summary">
+          <div class="co-summary-label">Order Summary</div>
+          ${summaryItems}
+          <div class="co-total-row">
+            <span class="co-total-label">Total</span>
+            <span class="co-total-val">$${cartTotal()}</span>
+          </div>
+        </div>
+      </form>`;
+    cartDrFoot.innerHTML=`
+      <button class="cart-cta" type="submit" form="coForm">Place Order →</button>
+      <div class="cart-note">We'll email you payment instructions within 24 hours.</div>`;
+  }
+
+  function submitOrder(e){
+    e.preventDefault();
+    const fd=new FormData(e.target);
+    const orderNum='SLC-'+Math.floor(100000+Math.random()*900000);
+    const itemLines=cart.map(i=>`  ${i.name} x${i.qty} (Size: ${i.size}) — $${i.price*i.qty}`).join('\n');
+    const body=`ORDER: ${orderNum}\nDate: ${new Date().toLocaleDateString()}\n\nITEMS:\n${itemLines}\n\nTOTAL: $${cartTotal()}\n\nSHIP TO:\n${fd.get('name')}\n${fd.get('address')}\n${fd.get('city')}, ${fd.get('state')} ${fd.get('zip')}\n\nCONTACT:\nEmail: ${fd.get('email')}\nPhone: ${fd.get('phone')||'—'}`;
+    const subject=`New Order ${orderNum} — Solace Apperal`;
+    window.location.href=`mailto:solacestudios@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    cart=[];
+    updateBadge();
+    showView('confirm');
+    window._lastOrder={num:orderNum,email:fd.get('email')};
+  }
+
+  function renderConfirmView(){
+    const o=window._lastOrder||{num:'SLC-??????',email:'your email'};
+    cartDrBody.innerHTML=`
+      <div class="confirm-inner">
+        <div class="confirm-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="confirm-h">Order Placed!</div>
+        <p class="confirm-sub">Your order has been sent to us. We'll reach out to ${o.email} with payment details shortly.</p>
+        <div class="confirm-num">${o.num}</div>
+        <div class="confirm-steps">
+          <div class="confirm-step"><span class="confirm-step-num">01</span>We receive your order and confirm availability.</div>
+          <div class="confirm-step"><span class="confirm-step-num">02</span>We email you a secure payment link within 24 hours.</div>
+          <div class="confirm-step"><span class="confirm-step-num">03</span>Once paid, your order ships within 3–5 business days.</div>
+        </div>
+      </div>`;
+    cartDrFoot.innerHTML=`<button class="cart-cta" onclick="closeCart()">Done</button>`;
   }
 
   function addToCart(name,size){
-    const p=PRODUCTS[name];
-    if(!p) return;
+    const p=PRODUCTS[name];if(!p)return;
     const key=name+'|'+size;
-    const existing=cart.find(i=>i.key===key);
-    if(existing) existing.qty++;
-    else cart.push({key,name,size,price:p.price,img:p.img,qty:1});
-    renderCart();
+    const ex=cart.find(i=>i.key===key);
+    if(ex)ex.qty++;else cart.push({key,name,size,price:p.price,img:p.img,qty:1});
+    if(drawerView==='cart')renderCartView();else updateBadge();
   }
-
-  function changeQty(idx,delta){
-    cart[idx].qty+=delta;
-    if(cart[idx].qty<=0) cart.splice(idx,1);
-    renderCart();
-  }
-
-  function removeItem(idx){
-    cart.splice(idx,1);
-    renderCart();
-  }
+  function changeQty(idx,delta){cart[idx].qty+=delta;if(cart[idx].qty<=0)cart.splice(idx,1);renderCartView();}
+  function removeItem(idx){cart.splice(idx,1);renderCartView();}
 
   /* Size button toggle */
   document.querySelectorAll('.sz-btn').forEach(btn=>{
     btn.addEventListener('click',function(){
       this.closest('.shop-card').querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('active'));
       this.classList.add('active');
-      this.closest('.shop-card').querySelector('.sz-hint').classList.remove('show');
+      const hint=this.closest('.shop-card').querySelector('.sz-hint');
+      if(hint)hint.classList.remove('show');
     });
   });
 
@@ -830,25 +947,21 @@
       const name=card.querySelector('.shop-name').textContent.trim();
       const activeSize=card.querySelector('.sz-btn.active');
       const isOneSize=card.querySelector('.sz-onesz');
-      if(!activeSize && !isOneSize){
+      if(!activeSize&&!isOneSize){
         const row=card.querySelector('.size-row');
         const hint=card.querySelector('.sz-hint');
-        row.classList.remove('shake');
-        void row.offsetWidth;
-        row.classList.add('shake');
-        hint.classList.add('show');
+        row.classList.remove('shake');void row.offsetWidth;row.classList.add('shake');
+        if(hint)hint.classList.add('show');
         return;
       }
       const size=isOneSize?'One Size':activeSize.dataset.size;
-      addToCart(name,size);
-      openCart();
-      const orig=this.textContent;
-      this.textContent='Added ✓';
+      addToCart(name,size);openCart();
+      const orig=this.textContent;this.textContent='Added ✓';
       setTimeout(()=>this.textContent=orig,1400);
     });
   });
 
-  renderCart();
+  renderCartView();
 
   /* Newsletter */
   function nlSubmit(e){
