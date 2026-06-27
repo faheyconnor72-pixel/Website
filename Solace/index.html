@@ -44,8 +44,8 @@
     .n-right{display:flex;align-items:center;gap:.5rem;}
     .n-icon{background:none;border:none;color:var(--off);cursor:pointer;padding:.55rem;display:flex;align-items:center;justify-content:center;transition:color .2s;position:relative;}
     .n-icon:hover{color:var(--white);}
-    .n-ig{color:var(--lime) !important;border:1px solid rgba(136,68,204,.35);border-radius:4px;}
-    .n-ig:hover{color:var(--white) !important;border-color:var(--lime);box-shadow:0 0 12px rgba(136,68,204,.4);}
+    .n-ig{color:var(--black) !important;background:var(--lime);border:none !important;border-radius:3px;padding:.45rem 1rem !important;font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:.45rem;white-space:nowrap;}
+    .n-ig:hover{background:#a040e0;color:var(--white) !important;box-shadow:0 0 18px rgba(136,68,204,.55);transform:translateY(-1px);}
     .n-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
     .cart-badge{position:absolute;top:2px;right:2px;background:var(--lime);color:var(--black);font-size:.42rem;font-weight:700;width:14px;height:14px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Space Mono',monospace;}
     .n-tog{display:none;background:none;border:none;cursor:pointer;padding:.5rem;flex-direction:column;gap:4px;}
@@ -226,14 +226,14 @@
     .nl-inner{position:relative;z-index:1;}
     .nl-tag{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem;}
     .nl-tag::before{content:'';width:16px;height:1.5px;background:var(--lime);}
-    .nl-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);letter-spacing:.04em;color:var(--white);line-height:.88;margin-bottom:1rem;}
-    .nl-sub{font-size:.82rem;color:var(--off);line-height:1.8;font-weight:300;}
+    .nl-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,9rem);letter-spacing:.04em;color:var(--white);line-height:.88;margin-bottom:1.25rem;}
+    .nl-sub{font-size:.92rem;color:var(--off);line-height:1.8;font-weight:300;}
     .nl-form-wrap{position:relative;z-index:1;}
-    .nl-row{display:flex;border:1px solid var(--bd2);background:rgba(240,240,240,.03);}
-    .nl-input{flex:1;background:none;border:none;outline:none;padding:.95rem 1.25rem;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--white);}
+    .nl-row{display:flex;border:2px solid var(--bd2);background:rgba(240,240,240,.04);}
+    .nl-input{flex:1;background:none;border:none;outline:none;padding:1.4rem 1.75rem;font-family:'Space Mono',monospace;font-size:1rem;color:var(--white);}
     .nl-input::placeholder{color:var(--dim);letter-spacing:.08em;}
-    .nl-btn{background:var(--lime);border:none;color:var(--black);padding:.95rem 1.5rem;font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap;}
-    .nl-btn:hover{background:#a040e0;}
+    .nl-btn{background:var(--lime);border:none;color:var(--black);padding:1.4rem 2.25rem;font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s,box-shadow .2s;white-space:nowrap;}
+    .nl-btn:hover{background:#a040e0;color:var(--white);box-shadow:0 0 20px rgba(136,68,204,.45);}
     .nl-perks{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem;}
     .nl-perk{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);}
     .nl-perk::before{content:'// ';color:var(--lime);}
@@ -248,8 +248,8 @@
     .f-socials{display:flex;gap:.5rem;}
     .f-soc{width:36px;height:36px;border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;color:var(--mid);text-decoration:none;font-size:.52rem;font-weight:700;letter-spacing:.04em;font-family:'Space Mono',monospace;transition:border-color .2s,color .2s,box-shadow .2s;}
     .f-soc:hover{border-color:var(--lime);color:var(--lime);}
-    .f-soc-ig{border-color:rgba(136,68,204,.5);color:var(--lime);font-size:.48rem;}
-    .f-soc-ig:hover{box-shadow:0 0 14px rgba(136,68,204,.5);}
+    .f-soc-ig-big{display:inline-flex;align-items:center;gap:.6rem;padding:.65rem 1.4rem;border:1.5px solid rgba(136,68,204,.5);color:var(--lime);text-decoration:none;font-family:'Space Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:3px;transition:background .2s,border-color .2s,box-shadow .2s,color .2s;}
+    .f-soc-ig-big:hover{background:var(--lime);color:var(--black);border-color:var(--lime);box-shadow:0 0 18px rgba(136,68,204,.5);}
     .f-col h4{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:1.25rem;}
     .f-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem;}
     .f-col a{font-size:.75rem;color:var(--mid);text-decoration:none;font-weight:400;transition:color .2s;letter-spacing:.02em;}
@@ -338,18 +338,15 @@
   <ul class="n-links">
     <li><a href="#shop">Shop</a></li>
     <li><a href="#shop">Drop 001</a></li>
-    <li><a href="#about">About</a></li>
     <li><a href="#" class="hot">Sale</a></li>
   </ul>
   <div class="n-right">
-    <a class="n-icon n-ig" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    <a class="n-ig" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      @solace.apperal
     </a>
     <button class="n-icon" aria-label="Search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
-    <button class="n-icon" aria-label="Wishlist">
-      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     </button>
     <button class="n-icon" aria-label="Cart" id="navCart">
       <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -531,10 +528,10 @@
       <div class="f-brand">SOLACE <span>APPERAL</span></div>
       <div class="f-tagline">Street culture. Raw materials. Zero compromise. Brooklyn, NY · Est. 2023</div>
       <div class="f-socials">
-        <a class="f-soc f-soc-ig" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener" title="@solace.apperal">IG</a>
-        <a class="f-soc" href="#">TK</a>
-        <a class="f-soc" href="#">X</a>
-        <a class="f-soc" href="#">DC</a>
+        <a class="f-soc-ig-big" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @solace.apperal
+        </a>
       </div>
     </div>
     <div class="f-col">
