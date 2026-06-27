@@ -319,6 +319,7 @@
     .sz-btn{font-family:'Space Mono',monospace;font-size:.52rem;font-weight:700;letter-spacing:.06em;padding:.32rem .58rem;border:1px solid var(--bd2);background:none;color:var(--off);cursor:pointer;transition:border-color .15s,background .15s,color .15s;border-radius:2px;}
     .sz-btn:hover{border-color:rgba(240,240,240,.4);color:var(--white);}
     .sz-btn.active{border-color:var(--lime);background:var(--lime);color:var(--black);}
+    .sz-onesz{font-family:'Space Mono',monospace;font-size:.52rem;font-weight:700;letter-spacing:.08em;padding:.32rem .7rem;border:1px solid var(--lime);background:rgba(136,68,204,.15);color:var(--lime);border-radius:2px;}
     .sz-hint{font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.1em;color:rgba(255,100,100,.75);height:0;overflow:hidden;transition:height .2s;}
     .sz-hint.show{height:1.2em;}
     @keyframes sz-shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
@@ -555,18 +556,14 @@
         <div class="shop-price">$40</div>
         <div class="size-row">
           <span class="size-label">Size</span>
-          <div class="size-btns">
-            <button class="sz-btn" data-size="S/M">S/M</button>
-            <button class="sz-btn" data-size="L/XL">L/XL</button>
-          </div>
+          <span class="sz-onesz">One Size</span>
         </div>
-        <div class="sz-hint">Select a size to continue</div>
       </div>
     </div>
 
     <div class="shop-card rv d3">
       <div class="shop-img-wrap">
-        <img class="shop-img" src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=700&q=80" alt="Signal Longsleeve">
+        <img class="shop-img" src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=700&q=80" alt="Signal Longsleeve">
         <button class="shop-qadd">Add to Cart</button>
       </div>
       <div class="shop-body">
@@ -784,7 +781,8 @@
       const card=this.closest('.shop-card');
       const name=card.querySelector('.shop-name').textContent.trim();
       const activeSize=card.querySelector('.sz-btn.active');
-      if(!activeSize){
+      const isOneSize=card.querySelector('.sz-onesz');
+      if(!activeSize && !isOneSize){
         const row=card.querySelector('.size-row');
         const hint=card.querySelector('.sz-hint');
         row.classList.remove('shake');
@@ -793,7 +791,8 @@
         hint.classList.add('show');
         return;
       }
-      addToCart(name,activeSize.dataset.size);
+      const size=isOneSize?'One Size':activeSize.dataset.size;
+      addToCart(name,size);
       openCart();
       const orig=this.textContent;
       this.textContent='Added ✓';
