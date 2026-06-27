@@ -312,10 +312,28 @@
     .cart-checkout:disabled{background:var(--dim);color:var(--mid);cursor:not-allowed;box-shadow:none;}
     .cart-note{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.08em;color:var(--dim);text-align:center;margin-top:.85rem;line-height:1.7;}
 
+    /* SIZE SELECTOR */
+    .size-row{display:flex;align-items:center;gap:.75rem;margin:.85rem 0 .75rem;}
+    .size-label{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);}
+    .size-btns{display:flex;gap:.3rem;}
+    .sz-btn{font-family:'Space Mono',monospace;font-size:.52rem;font-weight:700;letter-spacing:.06em;padding:.32rem .58rem;border:1px solid var(--bd2);background:none;color:var(--off);cursor:pointer;transition:border-color .15s,background .15s,color .15s;border-radius:2px;}
+    .sz-btn:hover{border-color:rgba(240,240,240,.4);color:var(--white);}
+    .sz-btn.active{border-color:var(--lime);background:var(--lime);color:var(--black);}
+    .sz-hint{font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.1em;color:rgba(255,100,100,.75);height:0;overflow:hidden;transition:height .2s;}
+    .sz-hint.show{height:1.2em;}
+    @keyframes sz-shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .size-row.shake{animation:sz-shake .35s ease;}
+
     /* REVEAL */
-    .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+    .rv{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s cubic-bezier(.16,1,.3,1);}
     .rv.vis{opacity:1;transform:none;}
-    .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
+    .rv-l{opacity:0;transform:translateX(-32px);transition:opacity .75s ease,transform .75s cubic-bezier(.16,1,.3,1);}
+    .rv-l.vis{opacity:1;transform:none;}
+    .rv-r{opacity:0;transform:translateX(32px);transition:opacity .75s ease,transform .75s cubic-bezier(.16,1,.3,1);}
+    .rv-r.vis{opacity:1;transform:none;}
+    .rv-scale{opacity:0;transform:scale(.93);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+    .rv-scale.vis{opacity:1;transform:none;}
+    .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
 
     /* RESPONSIVE */
     @media(max-width:1024px){
@@ -496,7 +514,7 @@
 
 <!-- SHOP -->
 <section id="shop">
-  <div class="shop-hd">
+  <div class="shop-hd rv">
     <div class="shop-hd-left">
       <div>
         <div class="shop-hd-tag">// New Arrival</div>
@@ -507,36 +525,62 @@
   </div>
   <div class="shop-grid">
 
-    <div class="shop-card">
+    <div class="shop-card rv d1">
       <div class="shop-img-wrap">
         <img class="shop-img" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80" alt="Solace Tee">
-        <button class="shop-qadd">Quick Add</button>
+        <button class="shop-qadd">Add to Cart</button>
       </div>
       <div class="shop-body">
         <div class="shop-name">Solace Tee</div>
-        <div class="shop-price">$55</div>
+        <div class="shop-price">$45</div>
+        <div class="size-row">
+          <span class="size-label">Size</span>
+          <div class="size-btns">
+            <button class="sz-btn" data-size="S">S</button>
+            <button class="sz-btn" data-size="M">M</button>
+            <button class="sz-btn" data-size="L">L</button>
+          </div>
+        </div>
+        <div class="sz-hint">Select a size to continue</div>
       </div>
     </div>
 
-    <div class="shop-card">
+    <div class="shop-card rv d2">
       <div class="shop-img-wrap">
         <img class="shop-img" src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=700&q=80" alt="Void Cap">
-        <button class="shop-qadd">Quick Add</button>
+        <button class="shop-qadd">Add to Cart</button>
       </div>
       <div class="shop-body">
         <div class="shop-name">Void Cap</div>
-        <div class="shop-price">$45</div>
+        <div class="shop-price">$40</div>
+        <div class="size-row">
+          <span class="size-label">Size</span>
+          <div class="size-btns">
+            <button class="sz-btn" data-size="S/M">S/M</button>
+            <button class="sz-btn" data-size="L/XL">L/XL</button>
+          </div>
+        </div>
+        <div class="sz-hint">Select a size to continue</div>
       </div>
     </div>
 
-    <div class="shop-card">
+    <div class="shop-card rv d3">
       <div class="shop-img-wrap">
         <img class="shop-img" src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=700&q=80" alt="Signal Longsleeve">
-        <button class="shop-qadd">Quick Add</button>
+        <button class="shop-qadd">Add to Cart</button>
       </div>
       <div class="shop-body">
         <div class="shop-name">Signal Longsleeve</div>
-        <div class="shop-price">$75</div>
+        <div class="shop-price">$55</div>
+        <div class="size-row">
+          <span class="size-label">Size</span>
+          <div class="size-btns">
+            <button class="sz-btn" data-size="S">S</button>
+            <button class="sz-btn" data-size="M">M</button>
+            <button class="sz-btn" data-size="L">L</button>
+          </div>
+        </div>
+        <div class="sz-hint">Select a size to continue</div>
       </div>
     </div>
 
@@ -545,12 +589,12 @@
 
 <!-- NEWSLETTER -->
 <section id="newsletter">
-  <div class="nl-inner">
+  <div class="nl-inner rv-l">
     <div class="nl-tag">Stay Locked</div>
     <h2 class="nl-h">Get The<br>Drop.</h2>
     <p class="nl-sub">One email. One drop. No noise. We send when it matters — not before, not after.</p>
   </div>
-  <div class="nl-form-wrap">
+  <div class="nl-form-wrap rv-r d1">
     <form onsubmit="nlSubmit(event)">
       <div class="nl-row">
         <input class="nl-input" type="email" placeholder="YOUR@EMAIL.COM" required>
@@ -588,7 +632,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
-    <div>
+    <div class="rv">
       <div class="f-brand">SOLACE <span>APPERAL</span></div>
       <div class="f-tagline">Street culture. Raw materials. Zero compromise. Brooklyn, NY · Est. 2023</div>
       <div class="f-socials">
@@ -598,7 +642,7 @@
         </a>
       </div>
     </div>
-    <div class="f-col">
+    <div class="f-col rv d1">
       <h4>// Shop</h4>
       <ul>
         <li><a href="#">New Drop</a></li>
@@ -609,7 +653,7 @@
         <li><a href="#" style="color:var(--lime)">Sale</a></li>
       </ul>
     </div>
-    <div class="f-col">
+    <div class="f-col rv d2">
       <h4>// Help</h4>
       <ul>
         <li><a href="#">Size Guide</a></li>
@@ -619,7 +663,7 @@
         <li><a href="mailto:solacestudios@gmail.com">Contact</a></li>
       </ul>
     </div>
-    <div class="f-col">
+    <div class="f-col rv d3">
       <h4>// Studio</h4>
       <ul>
         <li><a href="#">About</a></li>
@@ -652,9 +696,9 @@
 
   /* Cart */
   const PRODUCTS={
-    'Solace Tee':{price:55,img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=80'},
-    'Void Cap':{price:45,img:'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=200&q=80'},
-    'Signal Longsleeve':{price:75,img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=200&q=80'},
+    'Solace Tee':{price:45,img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=80'},
+    'Void Cap':{price:40,img:'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=200&q=80'},
+    'Signal Longsleeve':{price:55,img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&fit=crop&w=200&q=80'},
   };
   let cart=[];
 
@@ -692,7 +736,7 @@
         <img class="cart-item-img" src="${item.img}" alt="${item.name}">
         <div>
           <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">$${item.price}</div>
+          <div class="cart-item-price">$${item.price} · Size ${item.size}</div>
           <div class="cart-item-qty">
             <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
             <span class="qty-num">${item.qty}</span>
@@ -704,12 +748,13 @@
     `).join('');
   }
 
-  function addToCart(name){
+  function addToCart(name,size){
     const p=PRODUCTS[name];
     if(!p) return;
-    const existing=cart.find(i=>i.name===name);
+    const key=name+'|'+size;
+    const existing=cart.find(i=>i.key===key);
     if(existing) existing.qty++;
-    else cart.push({name,price:p.price,img:p.img,qty:1});
+    else cart.push({key,name,size,price:p.price,img:p.img,qty:1});
     renderCart();
   }
 
@@ -724,10 +769,31 @@
     renderCart();
   }
 
-  document.querySelectorAll('.shop-qadd:not([disabled])').forEach(btn=>{
-    const name=btn.closest('.shop-card').querySelector('.shop-name').textContent.trim();
+  /* Size button toggle */
+  document.querySelectorAll('.sz-btn').forEach(btn=>{
     btn.addEventListener('click',function(){
-      addToCart(name);
+      this.closest('.shop-card').querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      this.closest('.shop-card').querySelector('.sz-hint').classList.remove('show');
+    });
+  });
+
+  /* Add to cart */
+  document.querySelectorAll('.shop-qadd').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const card=this.closest('.shop-card');
+      const name=card.querySelector('.shop-name').textContent.trim();
+      const activeSize=card.querySelector('.sz-btn.active');
+      if(!activeSize){
+        const row=card.querySelector('.size-row');
+        const hint=card.querySelector('.sz-hint');
+        row.classList.remove('shake');
+        void row.offsetWidth;
+        row.classList.add('shake');
+        hint.classList.add('show');
+        return;
+      }
+      addToCart(name,activeSize.dataset.size);
       openCart();
       const orig=this.textContent;
       this.textContent='Added ✓';
@@ -749,8 +815,8 @@
   /* Scroll reveal */
   const obs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
-  },{threshold:.07});
-  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+  },{threshold:.08});
+  document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-scale').forEach(el=>obs.observe(el));
 
   /* Star field — Rolls-Royce ceiling density */
   (function(){
