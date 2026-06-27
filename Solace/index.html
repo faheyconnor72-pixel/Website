@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>SOLACE APPERAL — FALL 2026</title>
+  <script>if('scrollRestoration' in history)history.scrollRestoration='manual';window.scrollTo(0,0);</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --black:#080808;
+      --ink:#101010;
+      --card:#141414;
+      --card2:#1c1c1c;
+      --white:#f0f0f0;
+      --off:#b8b8b8;
+      --mid:#666;
+      --dim:#333;
+      --lime:#d4ff00;
+      --bd:rgba(240,240,240,.07);
+      --bd2:rgba(240,240,240,.14);
+    }
+    html{scroll-behavior:auto;-webkit-font-smoothing:antialiased;}
+    html.ready{scroll-behavior:smooth;}
+    body{font-family:'Space Grotesk',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.5;}
+
+    /* TICKER */
+    .ticker{background:var(--lime);padding:.48rem 0;overflow:hidden;position:relative;}
+    .ticker-track{display:flex;white-space:nowrap;animation:tk 22s linear infinite;}
+    .ticker-item{display:inline-flex;align-items:center;gap:1.25rem;padding:0 1.5rem;font-family:'Space Mono',monospace;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);}
+    .ticker-sep{opacity:.45;}
+    @keyframes tk{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+    /* NAV */
+    nav{background:var(--black);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:62px;position:sticky;top:0;z-index:500;}
+    .n-logo{font-family:'Bebas Neue',sans-serif;font-size:1.65rem;letter-spacing:.12em;color:var(--white);text-decoration:none;line-height:1;}
+    .n-logo span{color:var(--lime);}
+    .n-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .n-links a{color:var(--off);text-decoration:none;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:color .2s;font-family:'Space Mono',monospace;}
+    .n-links a:hover{color:var(--white);}
+    .n-links .hot{color:var(--lime);}
+    .n-right{display:flex;align-items:center;gap:.5rem;}
+    .n-icon{background:none;border:none;color:var(--off);cursor:pointer;padding:.55rem;display:flex;align-items:center;justify-content:center;transition:color .2s;position:relative;}
+    .n-icon:hover{color:var(--white);}
+    .n-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+    .cart-badge{position:absolute;top:2px;right:2px;background:var(--lime);color:var(--black);font-size:.42rem;font-weight:700;width:14px;height:14px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Space Mono',monospace;}
+    .n-tog{display:none;background:none;border:none;cursor:pointer;padding:.5rem;flex-direction:column;gap:4px;}
+    .n-tog span{display:block;width:20px;height:1.5px;background:var(--white);border-radius:1px;}
+
+    /* MOB MENU */
+    .mob-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:400;padding:5rem 2rem 3rem;flex-direction:column;gap:0;border-right:1px solid var(--bd);}
+    .mob-menu.open{display:flex;}
+    .mob-menu a{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.06em;color:var(--off);text-decoration:none;padding:.75rem 0;border-bottom:1px solid var(--bd);transition:color .2s;}
+    .mob-menu a:hover,.mob-menu a.hot{color:var(--lime);}
+    .mob-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--off);font-size:1.5rem;cursor:pointer;}
+
+    /* HERO */
+    #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#000;}
+    /* Subtle scanline */
+    #hero::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px);z-index:1;pointer-events:none;}
+    /* STARS layer */
+    #hero-stars{position:absolute;top:0;left:0;width:1px;height:1px;background:transparent;z-index:0;pointer-events:none;}
+    /* NEBULA blobs */
+    .nebula{position:absolute;border-radius:50%;pointer-events:none;z-index:0;}
+    .neb-1{width:900px;height:900px;background:radial-gradient(circle,rgba(110,35,200,.22) 0%,rgba(70,15,150,.10) 45%,transparent 70%);filter:blur(100px);top:-280px;right:-80px;}
+    .neb-2{width:650px;height:650px;background:radial-gradient(circle,rgba(25,55,210,.18) 0%,rgba(15,35,160,.08) 45%,transparent 70%);filter:blur(85px);bottom:-200px;left:-60px;}
+    .neb-3{width:550px;height:550px;background:radial-gradient(circle,rgba(200,35,120,.12) 0%,transparent 65%);filter:blur(75px);top:25%;left:18%;}
+    .neb-4{width:380px;height:380px;background:radial-gradient(circle,rgba(10,170,210,.09) 0%,transparent 65%);filter:blur(60px);top:8%;left:42%;}
+    /* PLANET */
+    .planet-wrap{position:absolute;right:4%;top:50%;transform:translateY(-50%);z-index:2;pointer-events:none;}
+    .planet-orb{position:relative;width:clamp(200px,28vw,400px);height:clamp(200px,28vw,400px);border-radius:50%;
+      background:radial-gradient(circle at 36% 30%,rgba(210,140,255,.95) 0%,rgba(140,55,230,.9) 18%,rgba(75,22,170,.96) 42%,rgba(28,8,75,1) 68%,rgba(8,3,22,1) 90%);
+      box-shadow:0 0 70px rgba(150,60,255,.75),0 0 140px rgba(110,35,230,.45),0 0 260px rgba(80,20,190,.28),0 0 420px rgba(60,12,150,.15);
+      animation:planet-float 9s ease-in-out infinite;}
+    @keyframes planet-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+    /* Planet ring */
+    .planet-ring{position:absolute;top:50%;left:50%;width:162%;height:162%;border-radius:50%;
+      transform:translate(-50%,-50%) rotateX(76deg);
+      border:14px solid rgba(190,130,255,.14);
+      box-shadow:0 0 35px rgba(190,130,255,.09),inset 0 0 25px rgba(190,130,255,.06);}
+    .planet-ring::after{content:'';position:absolute;inset:-22px;border-radius:50%;border:5px solid rgba(210,160,255,.06);}
+    /* Planet atmosphere */
+    .planet-atm{position:absolute;inset:-12%;border-radius:50%;background:radial-gradient(circle,transparent 48%,rgba(150,65,255,.2) 72%,transparent 88%);}
+    /* Planet highlight */
+    .planet-hl{position:absolute;top:12%;left:18%;width:32%;height:28%;border-radius:50%;background:radial-gradient(circle,rgba(230,195,255,.4) 0%,transparent 70%);filter:blur(10px);}
+    /* ORBITAL rings */
+    .orbital{position:absolute;border-radius:50%;pointer-events:none;z-index:2;}
+    .orb1{width:520px;height:720px;border:1.5px solid rgba(160,80,255,.1);right:-100px;top:50%;transform:translateY(-55%) rotate(-28deg);box-shadow:0 0 20px rgba(140,60,255,.04);}
+    .orb2{width:320px;height:460px;border:1px solid rgba(212,255,0,.07);right:-30px;top:50%;transform:translateY(-50%) rotate(12deg);}
+    /* Crosshair */
+    .ch-wrap{position:absolute;top:12%;right:7%;z-index:3;opacity:.22;}
+    .ch-svg{width:110px;height:110px;}
+    /* Grid accent top-left */
+    .grid-accent{position:absolute;top:0;left:0;width:220px;height:220px;z-index:1;opacity:.1;}
+    .grid-accent::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(160,90,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(160,90,255,.5) 1px,transparent 1px);background-size:28px 28px;}
+    .grid-accent::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:rgba(200,140,255,.6);clip-path:polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);}
+    /* Twinkling star animation */
+    @keyframes star-twinkle{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.08;transform:scale(.4);}}
+    @keyframes pulse-beacon{0%,100%{box-shadow:0 0 0 0 rgba(212,255,0,.5);}60%{box-shadow:0 0 0 7px rgba(212,255,0,0);}}
+    /* Hero inner content */
+    .hero-inner{position:relative;z-index:4;padding:0 3.5rem 4rem;}
+    .hero-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.2em;color:var(--mid);text-transform:uppercase;}
+    .hero-meta-sep{color:var(--dim);}
+    .hero-meta-live{color:var(--lime);display:flex;align-items:center;gap:.4rem;}
+    .hero-meta-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse-beacon 2s ease-in-out infinite;}
+    .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,22rem);line-height:.88;letter-spacing:.02em;color:var(--white);display:block;margin-bottom:-.25rem;text-shadow:0 0 80px rgba(212,255,0,.12),0 0 160px rgba(140,60,255,.08);}
+    .hero-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,11vw,13rem);line-height:.88;color:transparent;-webkit-text-stroke:1.5px rgba(240,240,240,.28);letter-spacing:.04em;display:block;}
+    .hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2.5rem;flex-wrap:wrap;gap:1.5rem;}
+    .hero-sub{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--mid);letter-spacing:.12em;text-transform:uppercase;line-height:1.85;max-width:340px;}
+    .hero-btns{display:flex;gap:.75rem;align-items:center;}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;font-family:'Space Mono',monospace;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;transition:background .2s,color .2s,transform .15s;white-space:nowrap;}
+    .btn:hover{transform:translateY(-1px);}
+    .btn-lime{background:var(--lime);color:var(--black);}
+    .btn-lime:hover{background:#c0e800;}
+    .btn-ghost{background:transparent;color:var(--white);border:1px solid var(--bd2);}
+    .btn-ghost:hover{border-color:var(--white);}
+    .btn-white{background:var(--white);color:var(--black);}
+    .btn-white:hover{background:var(--off);}
+    /* Scrolling marquee at bottom of hero */
+    .hero-mq{position:relative;z-index:2;border-top:1px solid var(--bd);background:rgba(240,240,240,.03);overflow:hidden;}
+    .hero-mq-track{display:flex;white-space:nowrap;animation:tk 28s linear infinite;padding:.65rem 0;}
+    .hero-mq-item{display:inline-flex;align-items:center;gap:1.5rem;padding:0 2rem;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
+    .hero-mq-sep{color:var(--lime);font-size:.5rem;}
+
+    /* SECTION SHARED */
+    .sec-head{padding:4rem 3.5rem 2.5rem;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--bd);}
+    .sec-num{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.18em;color:var(--mid);margin-bottom:.6rem;}
+    .sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5.5rem);letter-spacing:.04em;color:var(--white);line-height:.92;}
+    .sec-link{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--off);text-decoration:none;border-bottom:1px solid var(--bd2);padding-bottom:1px;transition:color .2s,border-color .2s;white-space:nowrap;}
+    .sec-link:hover{color:var(--lime);border-color:var(--lime);}
+
+    /* CATEGORIES */
+    #categories{padding:0;}
+    .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);}
+    .cat-card{position:relative;overflow:hidden;display:block;text-decoration:none;background:var(--card);}
+    .cat-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(30%) contrast(1.1);transition:transform .6s ease,filter .4s;}
+    .cat-card:hover img{transform:scale(1.07);filter:grayscale(0%) contrast(1.05);}
+    .cat-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.9) 0%,rgba(8,8,8,.2) 50%,transparent 100%);transition:background .3s;}
+    .cat-card:hover .cat-card-overlay{background:linear-gradient(to top,rgba(8,8,8,.75) 0%,rgba(8,8,8,.1) 50%,transparent 100%);}
+    .cat-card-body{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;}
+    .cat-card-num{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.2em;color:var(--lime);margin-bottom:.5rem;}
+    .cat-card-name{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;letter-spacing:.06em;color:var(--white);line-height:1;margin-bottom:.35rem;}
+    .cat-card-cta{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--off);display:flex;align-items:center;gap:.4rem;transition:gap .2s,color .2s;}
+    .cat-card:hover .cat-card-cta{gap:.75rem;color:var(--lime);}
+
+    /* PRODUCTS */
+    .prod-section{background:var(--black);}
+    .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);padding:1px 3.5rem 3.5rem;margin:0;}
+    .prod-card{background:var(--card);position:relative;}
+    .prod-img-wrap{position:relative;overflow:hidden;}
+    .prod-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(20%) contrast(1.08);transition:transform .6s ease,filter .4s;}
+    .prod-card:hover .prod-img{transform:scale(1.05);filter:grayscale(0%);}
+    .prod-badge{position:absolute;top:.75rem;left:.75rem;font-family:'Space Mono',monospace;font-size:.48rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.3rem .65rem;z-index:1;line-height:1;}
+    .badge-new{background:var(--lime);color:var(--black);}
+    .badge-drop{background:var(--white);color:var(--black);}
+    .badge-ltd{background:transparent;color:var(--lime);border:1px solid var(--lime);}
+    .badge-sold{background:var(--dim);color:var(--off);}
+    .prod-wish{position:absolute;top:.65rem;right:.65rem;background:rgba(8,8,8,.7);border:1px solid var(--bd2);cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s,border-color .2s;z-index:1;}
+    .prod-wish svg{width:14px;height:14px;stroke:var(--off);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:fill .2s,stroke .2s;}
+    .prod-wish.on svg{fill:var(--lime);stroke:var(--lime);}
+    .prod-card:hover .prod-wish{opacity:1;}
+    .prod-actions{position:absolute;bottom:0;left:0;right:0;padding:.6rem;opacity:0;transition:opacity .25s;z-index:1;}
+    .prod-card:hover .prod-actions{opacity:1;}
+    .prod-quick{width:100%;background:var(--lime);border:none;padding:.65rem;font-family:'Space Mono',monospace;font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;color:var(--black);transition:background .2s;}
+    .prod-quick:hover{background:#c0e800;}
+    .prod-info{padding:1rem 1rem 1.25rem;}
+    .prod-cat{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem;}
+    .prod-name{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.06em;color:var(--white);margin-bottom:.35rem;line-height:1;}
+    .prod-price-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.55rem;}
+    .prod-price{font-family:'Space Mono',monospace;font-size:.78rem;font-weight:700;color:var(--white);}
+    .prod-price-orig{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--mid);text-decoration:line-through;}
+    .prod-price-sale{color:var(--lime);}
+    .prod-colors{display:flex;gap:.3rem;}
+    .cdot{width:12px;height:12px;cursor:pointer;transition:outline .15s;}
+    .cdot:hover,.cdot.on{outline:2px solid var(--lime);outline-offset:2px;}
+
+    /* STATEMENT */
+    #statement{background:var(--white);color:var(--black);padding:7rem 3.5rem;position:relative;overflow:hidden;}
+    #statement::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(8,8,8,.06) 1.5px,transparent 1.5px);background-size:14px 14px;pointer-events:none;}
+    .stmt-inner{position:relative;z-index:1;}
+    .stmt-tag{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(8,8,8,.4);margin-bottom:2rem;display:flex;align-items:center;gap:.75rem;}
+    .stmt-tag::before{content:'';width:24px;height:1.5px;background:rgba(8,8,8,.3);}
+    .stmt-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,9vw,11rem);line-height:.9;letter-spacing:.02em;color:var(--black);}
+    .stmt-h .outline{-webkit-text-stroke:1.5px var(--black);color:transparent;}
+    .stmt-body{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:3.5rem;align-items:start;}
+    .stmt-p{font-size:.84rem;color:rgba(8,8,8,.55);line-height:1.95;font-weight:300;}
+    .stmt-p strong{color:var(--black);font-weight:600;}
+    .stmt-stat{border-left:2px solid var(--black);padding-left:1.5rem;}
+    .stmt-stat-num{font-family:'Bebas Neue',sans-serif;font-size:4.5rem;line-height:.9;letter-spacing:.04em;color:var(--black);margin-bottom:.4rem;}
+    .stmt-stat-label{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(8,8,8,.4);}
+    .stmt-stats{display:flex;gap:3.5rem;flex-wrap:wrap;}
+    .stmt-cta{margin-top:2.5rem;}
+
+    /* FEATURE SPLIT */
+    #feature{display:grid;grid-template-columns:1fr 1fr;min-height:600px;background:var(--ink);border-top:1px solid var(--bd);}
+    .feat-img{position:relative;overflow:hidden;}
+    .feat-img img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(25%) contrast(1.1);transition:transform .8s ease;}
+    #feature:hover .feat-img img{transform:scale(1.04);}
+    /* halftone overlay on image */
+    .feat-img::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(8,8,8,.2) 1px,transparent 1px);background-size:8px 8px;mix-blend-mode:multiply;pointer-events:none;}
+    .feat-body{display:flex;flex-direction:column;justify-content:center;padding:5rem 4.5rem;position:relative;overflow:hidden;}
+    .feat-body::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border:1.5px solid var(--bd);border-radius:50%;pointer-events:none;}
+    .feat-drop-tag{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);margin-bottom:2rem;display:flex;align-items:center;gap:.6rem;}
+    .feat-drop-tag::before{content:'';width:16px;height:1.5px;background:var(--lime);}
+    .feat-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5.5rem);letter-spacing:.04em;color:var(--white);line-height:.92;margin-bottom:1rem;}
+    .feat-sub{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:1.75rem;}
+    .feat-p{font-size:.83rem;color:var(--off);line-height:1.85;font-weight:300;max-width:360px;margin-bottom:2.5rem;}
+    .feat-detail{display:grid;grid-template-columns:1fr 1fr;gap:1rem;border-top:1px solid var(--bd);padding-top:1.5rem;margin-bottom:2rem;}
+    .feat-detail-item{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);}
+    .feat-detail-item strong{display:block;color:var(--white);font-size:.62rem;margin-bottom:.2rem;}
+
+    /* ABOUT */
+    #about{background:var(--card);padding:6rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;border-top:1px solid var(--bd);}
+    .about-decor{position:relative;}
+    .about-img-wrap{position:relative;overflow:hidden;}
+    .about-img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:grayscale(40%) contrast(1.1);}
+    .about-img-wrap::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(8,8,8,.15) 1px,transparent 1px);background-size:8px 8px;pointer-events:none;mix-blend-mode:multiply;}
+    /* Crosshair corner decoration */
+    .about-img-wrap::before{content:'';position:absolute;bottom:.75rem;right:.75rem;width:40px;height:40px;border-right:1.5px solid var(--lime);border-bottom:1.5px solid var(--lime);z-index:1;}
+    .about-label{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem;}
+    .about-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,5rem);letter-spacing:.04em;color:var(--white);line-height:.92;margin-bottom:2rem;}
+    .about-p{font-size:.83rem;color:var(--off);line-height:1.9;font-weight:300;margin-bottom:1rem;}
+    .about-p strong{color:var(--white);font-weight:600;}
+    .about-specs{display:flex;flex-direction:column;gap:.75rem;margin-top:2rem;border-top:1px solid var(--bd);padding-top:1.75rem;}
+    .spec-row{display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 0;border-bottom:1px solid var(--bd);}
+    .spec-row:last-child{border-bottom:none;}
+    .spec-key{color:var(--mid);}
+    .spec-val{color:var(--white);font-weight:700;}
+    .spec-val.lime{color:var(--lime);}
+
+    /* NEWSLETTER */
+    #newsletter{background:var(--black);padding:6rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;border-top:1px solid var(--bd);position:relative;overflow:hidden;}
+    #newsletter::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(240,240,240,.04) 1.5px,transparent 1.5px);background-size:14px 14px;}
+    .nl-inner{position:relative;z-index:1;}
+    .nl-tag{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem;}
+    .nl-tag::before{content:'';width:16px;height:1.5px;background:var(--lime);}
+    .nl-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);letter-spacing:.04em;color:var(--white);line-height:.88;margin-bottom:1rem;}
+    .nl-sub{font-size:.82rem;color:var(--off);line-height:1.8;font-weight:300;}
+    .nl-form-wrap{position:relative;z-index:1;}
+    .nl-row{display:flex;border:1px solid var(--bd2);background:rgba(240,240,240,.03);}
+    .nl-input{flex:1;background:none;border:none;outline:none;padding:.95rem 1.25rem;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--white);}
+    .nl-input::placeholder{color:var(--dim);letter-spacing:.08em;}
+    .nl-btn{background:var(--lime);border:none;color:var(--black);padding:.95rem 1.5rem;font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap;}
+    .nl-btn:hover{background:#c0e800;}
+    .nl-perks{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem;}
+    .nl-perk{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);}
+    .nl-perk::before{content:'// ';color:var(--lime);}
+    .nl-fine{margin-top:1.25rem;font-size:.6rem;color:var(--dim);line-height:1.6;}
+
+    /* FOOTER */
+    footer{background:var(--ink);border-top:1px solid var(--bd);}
+    .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:3rem;padding:4rem 3.5rem 3rem;border-bottom:1px solid var(--bd);}
+    .f-brand{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.12em;color:var(--white);margin-bottom:.5rem;}
+    .f-brand span{color:var(--lime);}
+    .f-tagline{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.1em;color:var(--mid);line-height:1.7;max-width:220px;margin-bottom:1.5rem;}
+    .f-socials{display:flex;gap:.5rem;}
+    .f-soc{width:32px;height:32px;border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;color:var(--mid);text-decoration:none;font-size:.52rem;font-weight:700;letter-spacing:.04em;font-family:'Space Mono',monospace;transition:border-color .2s,color .2s;}
+    .f-soc:hover{border-color:var(--lime);color:var(--lime);}
+    .f-col h4{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:1.25rem;}
+    .f-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem;}
+    .f-col a{font-size:.75rem;color:var(--mid);text-decoration:none;font-weight:400;transition:color .2s;letter-spacing:.02em;}
+    .f-col a:hover{color:var(--lime);}
+    .footer-bot{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 3.5rem;flex-wrap:wrap;gap:1rem;}
+    .f-copy{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;}
+    .f-pay{display:flex;gap:.5rem;}
+    .pay-tag{border:1px solid var(--dim);padding:.22rem .5rem;font-family:'Space Mono',monospace;font-size:.45rem;letter-spacing:.08em;color:var(--dim);}
+
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+    .rv.vis{opacity:1;transform:none;}
+    .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}.d4{transition-delay:.32s;}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      nav{padding:0 1.5rem;}
+      .n-links{gap:1.25rem;}
+      .n-links li:nth-child(3),.n-links li:nth-child(4){display:none;}
+      .hero-inner{padding:0 2rem 3.5rem;}
+      #categories,.sec-head,.prod-section{padding-left:0;padding-right:0;}
+      .cat-grid{grid-template-columns:repeat(2,1fr);}
+      .prod-grid{padding:1px 1.5rem 3rem;}
+      .prod-grid{grid-template-columns:repeat(2,1fr);}
+      #statement{padding:5rem 2rem;}
+      .stmt-body{grid-template-columns:1fr;}
+      #feature{grid-template-columns:1fr;}
+      .feat-img{aspect-ratio:4/3;max-height:340px;}
+      .feat-img img{height:100%;}
+      .feat-body{padding:3.5rem 2rem;}
+      #about{grid-template-columns:1fr;padding:4.5rem 2rem;gap:3rem;}
+      .about-img{aspect-ratio:16/9;}
+      #newsletter{grid-template-columns:1fr;padding:4.5rem 2rem;gap:2.5rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:2rem;padding:3rem 2rem 2.5rem;}
+      .footer-bot{padding:1.5rem 2rem;}
+      .sec-head{padding:3rem 1.5rem 2rem;}
+    }
+    @media(max-width:768px){
+      .n-links{display:none;}
+      .n-tog{display:flex;}
+      .hero-h1{font-size:18vw;}
+      .hero-h2{font-size:10vw;}
+      .cat-grid{grid-template-columns:1fr 1fr;}
+      .prod-grid{grid-template-columns:1fr 1fr;gap:1px;}
+      .footer-top{grid-template-columns:1fr;}
+      .stmt-stats{gap:2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">SOLACE APPERAL<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">FALL 2026<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">DROP 001<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">LIMITED UNITS<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">SHIPPING NOW<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">NO RESTOCKS<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">SOLACE APPERAL<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">FALL 2026<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">DROP 001<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">LIMITED UNITS<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">SHIPPING NOW<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">NO RESTOCKS<span class="ticker-sep">·</span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="n-logo">SOLACE <span>APPERAL</span></a>
+  <ul class="n-links">
+    <li><a href="#categories">Shop</a></li>
+    <li><a href="#new">New Drop</a></li>
+    <li><a href="#best">Best Sellers</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#" class="hot">Sale</a></li>
+  </ul>
+  <div class="n-right">
+    <button class="n-icon" aria-label="Search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="n-icon" aria-label="Wishlist">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button class="n-icon" aria-label="Cart" id="navCart">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="n-tog" id="nTog"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOB MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose">×</button>
+  <a href="#categories" onclick="closeMob()">Shop</a>
+  <a href="#new" onclick="closeMob()">New Drop</a>
+  <a href="#best" onclick="closeMob()">Best Sellers</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#newsletter" onclick="closeMob()">Contact</a>
+  <a href="#" onclick="closeMob()" class="hot">Sale</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Star field -->
+  <div id="hero-stars"></div>
+  <!-- Nebula blobs -->
+  <div class="nebula neb-1"></div>
+  <div class="nebula neb-2"></div>
+  <div class="nebula neb-3"></div>
+  <div class="nebula neb-4"></div>
+  <!-- Planet -->
+  <div class="planet-wrap">
+    <div class="planet-orb">
+      <div class="planet-ring"></div>
+      <div class="planet-atm"></div>
+      <div class="planet-hl"></div>
+    </div>
+  </div>
+  <!-- Orbital rings -->
+  <div class="orbital orb1"></div>
+  <div class="orbital orb2"></div>
+  <!-- Grid accent top-left -->
+  <div class="grid-accent"></div>
+  <!-- Crosshair top-right -->
+  <div class="ch-wrap">
+    <svg class="ch-svg" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="55" y1="0" x2="55" y2="110" stroke="white" stroke-width="1"/>
+      <line x1="0" y1="55" x2="110" y2="55" stroke="white" stroke-width="1"/>
+      <circle cx="55" cy="55" r="22" stroke="white" stroke-width="1"/>
+      <circle cx="55" cy="55" r="40" stroke="white" stroke-width=".5" opacity=".5"/>
+      <circle cx="55" cy="55" r="3" fill="white"/>
+      <!-- tick marks -->
+      <line x1="55" y1="0" x2="55" y2="10" stroke="white" stroke-width="2"/>
+      <line x1="55" y1="100" x2="55" y2="110" stroke="white" stroke-width="2"/>
+      <line x1="0" y1="55" x2="10" y2="55" stroke="white" stroke-width="2"/>
+      <line x1="100" y1="55" x2="110" y2="55" stroke="white" stroke-width="2"/>
+    </svg>
+  </div>
+  <!-- Content -->
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span>FA-2026</span>
+      <span class="hero-meta-sep">·</span>
+      <span>UNIT 001</span>
+      <span class="hero-meta-sep">·</span>
+      <span class="hero-meta-live">LIVE NOW</span>
+    </div>
+    <span class="hero-h1">SOLACE</span>
+    <span class="hero-h2">APPERAL</span>
+    <div class="hero-bottom">
+      <p class="hero-sub">Street culture.<br>Raw materials.<br>Zero compromise.</p>
+      <div class="hero-btns">
+        <a href="#new" class="btn btn-lime">Shop Drop 001</a>
+        <a href="#categories" class="btn btn-ghost">Browse All</a>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom scrolling marquee -->
+  <div class="hero-mq">
+    <div class="hero-mq-track">
+      <span class="hero-mq-item">SOLACE APPERAL<span class="hero-mq-sep">//</span></span>
+      <span class="hero-mq-item">FALL 2026<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">DROP 001<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">BUILT DIFFERENT<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">LIMITED UNITS<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">NO RESTOCKS<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">STREET LEVEL<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">SOLACE APPERAL<span class="hero-mq-sep">//</span></span>
+      <span class="hero-mq-item">FALL 2026<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">DROP 001<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">BUILT DIFFERENT<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">LIMITED UNITS<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">NO RESTOCKS<span class="hero-mq-sep">·</span></span>
+      <span class="hero-mq-item">STREET LEVEL<span class="hero-mq-sep">·</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">// 001</div>
+      <h2 class="sec-h">Browse</h2>
+    </div>
+    <a href="#" class="sec-link">All Categories →</a>
+  </div>
+  <div class="cat-grid">
+    <a class="cat-card rv" href="#new">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Outerwear">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-num">001 ——</div>
+        <div class="cat-card-name">Outerwear</div>
+        <div class="cat-card-cta">Shop Now →</div>
+      </div>
+    </a>
+    <a class="cat-card rv d1" href="#new">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="Bottoms">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-num">002 ——</div>
+        <div class="cat-card-name">Bottoms</div>
+        <div class="cat-card-cta">Shop Now →</div>
+      </div>
+    </a>
+    <a class="cat-card rv d2" href="#new">
+      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80" alt="Tops">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-num">003 ——</div>
+        <div class="cat-card-name">Tops</div>
+        <div class="cat-card-cta">Shop Now →</div>
+      </div>
+    </a>
+    <a class="cat-card rv d3" href="#">
+      <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" alt="Accessories">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-num">004 ——</div>
+        <div class="cat-card-name">Accessories</div>
+        <div class="cat-card-cta">Shop Now →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- NEW DROP -->
+<section id="new" class="prod-section">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">// 002</div>
+      <h2 class="sec-h">New Drop</h2>
+    </div>
+    <a href="#" class="sec-link">View All →</a>
+  </div>
+  <div class="prod-grid">
+    <div class="prod-card rv">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-new">New Drop</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=500&q=80" alt="Static Hoodie">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">001 / Hoodies</div>
+        <div class="prod-name">The Static Hoodie</div>
+        <div class="prod-price-row"><span class="prod-price">$95</span></div>
+        <div class="prod-colors">
+          <span class="cdot on" style="background:#111;border:1px solid #444;"></span>
+          <span class="cdot" style="background:#f0f0f0;border:1px solid #555;"></span>
+          <span class="cdot" style="background:#444;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card rv d1">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-new">New Drop</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=80" alt="Frequency Tee">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">002 / Tops</div>
+        <div class="prod-name">Frequency Tee</div>
+        <div class="prod-price-row"><span class="prod-price">$48</span></div>
+        <div class="prod-colors">
+          <span class="cdot on" style="background:#f0f0f0;border:1px solid #555;"></span>
+          <span class="cdot" style="background:#111;border:1px solid #444;"></span>
+          <span class="cdot" style="background:#d4ff00;border:1px solid #aaa;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card rv d2">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-ltd">Limited</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Cargo Pant">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">003 / Bottoms</div>
+        <div class="prod-name">Signal Cargo Pant</div>
+        <div class="prod-price-row"><span class="prod-price">$115</span></div>
+        <div class="prod-colors">
+          <span class="cdot on" style="background:#333;"></span>
+          <span class="cdot" style="background:#5a5040;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card rv d3">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-new">New Drop</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=500&q=80" alt="Void Bomber">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">004 / Outerwear</div>
+        <div class="prod-name">Void Bomber</div>
+        <div class="prod-price-row"><span class="prod-price">$185</span></div>
+        <div class="prod-colors">
+          <span class="cdot on" style="background:#0a0a0a;border:1px solid #444;"></span>
+          <span class="cdot" style="background:#1a2a1a;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section id="statement">
+  <div class="stmt-inner">
+    <div class="stmt-tag">Who We Are</div>
+    <h2 class="stmt-h">
+      BUILT FOR<br>
+      THE STREET.<br>
+      <span class="outline">WORN BY FEW.</span>
+    </h2>
+    <div class="stmt-body">
+      <p class="stmt-p">
+        <strong>Solace Apperal isn't a trend.</strong> It's a frequency. We design for people who move through the world on their own terms — with purpose, with edge, and without apology.
+        <br><br>
+        Every piece in every drop is built from raw materials, cut for comfort, and finished for the long run. We don't chase hype. We set it.
+      </p>
+      <div>
+        <div class="stmt-stats">
+          <div class="stmt-stat">
+            <div class="stmt-stat-num">001</div>
+            <div class="stmt-stat-label">Active Drop</div>
+          </div>
+          <div class="stmt-stat">
+            <div class="stmt-stat-num">40</div>
+            <div class="stmt-stat-label">Units Per Style</div>
+          </div>
+          <div class="stmt-stat">
+            <div class="stmt-stat-num">0</div>
+            <div class="stmt-stat-label">Restocks. Ever.</div>
+          </div>
+        </div>
+        <div class="stmt-cta">
+          <a href="#categories" class="btn btn-white">Browse All Styles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE SPLIT -->
+<section id="feature">
+  <div class="feat-img">
+    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=80" alt="Solace Drop 001 Feature">
+  </div>
+  <div class="feat-body">
+    <div class="feat-drop-tag">Featured Piece</div>
+    <h2 class="feat-h">The Void<br>Bomber</h2>
+    <div class="feat-sub">Outerwear · 004 / Drop 001</div>
+    <p class="feat-p">
+      Heavyweight nylon shell with a matte finish that doesn't reflect, doesn't fold, and doesn't apologize. Interior fleece lining. Double-entry pockets. Built to last longer than the trend.
+    </p>
+    <div class="feat-detail">
+      <div class="feat-detail-item"><strong>Material</strong>320gsm Nylon Shell</div>
+      <div class="feat-detail-item"><strong>Fit</strong>Oversized / Unisex</div>
+      <div class="feat-detail-item"><strong>Colors</strong>Void Black, Forest</div>
+      <div class="feat-detail-item"><strong>Units</strong>40 per colorway</div>
+    </div>
+    <div class="hero-btns">
+      <a href="#" class="btn btn-lime">Add to Cart — $185</a>
+      <a href="#" class="btn btn-ghost">Size Guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section id="best" class="prod-section">
+  <div class="sec-head">
+    <div>
+      <div class="sec-num">// 003</div>
+      <h2 class="sec-h">Best Sellers</h2>
+    </div>
+    <a href="#" class="sec-link">View All →</a>
+  </div>
+  <div class="prod-grid">
+    <div class="prod-card rv">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-drop">Top Seller</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=500&q=80" alt="Oversize Coat">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">005 / Outerwear</div>
+        <div class="prod-name">Oversize Tech Coat</div>
+        <div class="prod-price-row"><span class="prod-price">$245</span></div>
+        <div class="prod-colors"><span class="cdot on" style="background:#1a1a1a;border:1px solid #444;"></span><span class="cdot" style="background:#ccc;border:1px solid #aaa;"></span></div>
+      </div>
+    </div>
+
+    <div class="prod-card rv d1">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-sold">Sold Out</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=500&q=80" alt="Signal Set">
+        <div class="prod-actions"><button class="prod-quick" disabled style="opacity:.5;cursor:not-allowed;">Sold Out</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">006 / Sets</div>
+        <div class="prod-name">The Signal Set</div>
+        <div class="prod-price-row"><span class="prod-price" style="color:var(--mid);">$165</span></div>
+        <div class="prod-colors"><span class="cdot on" style="background:#333;"></span></div>
+      </div>
+    </div>
+
+    <div class="prod-card rv d2">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-drop">Top Seller</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Raw Denim">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">007 / Bottoms</div>
+        <div class="prod-name">Raw Denim 001</div>
+        <div class="prod-price-row"><span class="prod-price prod-price-sale">$89</span><span class="prod-price-orig">$140</span></div>
+        <div class="prod-colors"><span class="cdot on" style="background:#1a2a40;"></span><span class="cdot" style="background:#111;border:1px solid #444;"></span></div>
+      </div>
+    </div>
+
+    <div class="prod-card rv d3">
+      <div class="prod-img-wrap">
+        <span class="prod-badge badge-new">New Drop</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=500&q=80" alt="Noise Long Sleeve">
+        <div class="prod-actions"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">008 / Tops</div>
+        <div class="prod-name">Noise Long Sleeve</div>
+        <div class="prod-price-row"><span class="prod-price">$62</span></div>
+        <div class="prod-colors"><span class="cdot on" style="background:#f0f0f0;border:1px solid #555;"></span><span class="cdot" style="background:#111;border:1px solid #444;"></span><span class="cdot" style="background:#d4ff00;"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-decor rv">
+    <div class="about-img-wrap">
+      <img class="about-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80" alt="Solace Studio">
+    </div>
+  </div>
+  <div>
+    <div class="about-label rv">// About</div>
+    <h2 class="about-h rv d1">Made For<br>The Margins.</h2>
+    <p class="about-p rv d2"><strong>Solace Apperal was built in 2023</strong> for people who don't fit the mold. Not athletic wear. Not luxury. Not fast fashion. Something else entirely.</p>
+    <p class="about-p rv d2">We design in small runs, cut from deadstock and heavyweight natural fabrics. No seasonal collections. No lookbooks. Just drops — when they're ready and not a day before.</p>
+    <div class="about-specs rv d3">
+      <div class="spec-row"><span class="spec-key">Founded</span><span class="spec-val">2023</span></div>
+      <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">Brooklyn, NY</span></div>
+      <div class="spec-row"><span class="spec-key">Run Size</span><span class="spec-val">40 units max</span></div>
+      <div class="spec-row"><span class="spec-key">Restocks</span><span class="spec-val lime">Never.</span></div>
+      <div class="spec-row"><span class="spec-key">Fabric</span><span class="spec-val">Deadstock Only</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="nl-inner">
+    <div class="nl-tag">Stay Locked</div>
+    <h2 class="nl-h">Get The<br>Drop.</h2>
+    <p class="nl-sub">One email. One drop. No noise. We send when it matters — not before, not after.</p>
+  </div>
+  <div class="nl-form-wrap">
+    <form onsubmit="nlSubmit(event)">
+      <div class="nl-row">
+        <input class="nl-input" type="email" placeholder="YOUR@EMAIL.COM" required>
+        <button class="nl-btn" type="submit" id="nlBtn">Subscribe</button>
+      </div>
+    </form>
+    <div class="nl-perks">
+      <div class="nl-perk">Early access before public drops</div>
+      <div class="nl-perk">No promotional emails. Ever.</div>
+      <div class="nl-perk">Unsubscribe any time — no questions</div>
+    </div>
+    <div class="nl-fine">By subscribing you agree to our privacy policy. We will only contact you before a new drop goes live.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand">SOLACE <span>APPERAL</span></div>
+      <div class="f-tagline">Street culture. Raw materials. Zero compromise. Brooklyn, NY · Est. 2023</div>
+      <div class="f-socials">
+        <a class="f-soc" href="#">IG</a>
+        <a class="f-soc" href="#">TK</a>
+        <a class="f-soc" href="#">X</a>
+        <a class="f-soc" href="#">DC</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>// Shop</h4>
+      <ul>
+        <li><a href="#">New Drop</a></li>
+        <li><a href="#">Hoodies</a></li>
+        <li><a href="#">Outerwear</a></li>
+        <li><a href="#">Tops</a></li>
+        <li><a href="#">Bottoms</a></li>
+        <li><a href="#" style="color:var(--lime)">Sale</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>// Help</h4>
+      <ul>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>// Studio</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Process</a></li>
+        <li><a href="#">Archive</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="f-copy">© 2026 Solace Apperal LLC · All Rights Reserved</div>
+    <div class="f-pay">
+      <span class="pay-tag">VISA</span>
+      <span class="pay-tag">MC</span>
+      <span class="pay-tag">AMEX</span>
+      <span class="pay-tag">PAYPAL</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  setTimeout(()=>document.documentElement.classList.add('ready'),150);
+
+  /* Mobile menu */
+  const mobMenu=document.getElementById('mobMenu');
+  document.getElementById('nTog').addEventListener('click',()=>mobMenu.classList.toggle('open'));
+  document.getElementById('mobClose').addEventListener('click',()=>mobMenu.classList.remove('open'));
+  function closeMob(){mobMenu.classList.remove('open');}
+
+  /* Wishlist */
+  document.querySelectorAll('.prod-wish').forEach(btn=>{
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      this.classList.toggle('on');
+    });
+  });
+
+  /* Cart */
+  let cnt=0;
+  const badge=document.getElementById('cartBadge');
+  document.querySelectorAll('.prod-quick:not([disabled])').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      cnt++;
+      badge.textContent=cnt;
+      badge.style.display='flex';
+      const orig=this.textContent;
+      this.textContent='Added ✓';
+      setTimeout(()=>this.textContent=orig,1400);
+    });
+  });
+
+  /* Newsletter */
+  function nlSubmit(e){
+    e.preventDefault();
+    const btn=document.getElementById('nlBtn');
+    btn.textContent='Locked In.';
+    btn.style.background='var(--white)';
+    e.target.querySelector('.nl-input').value='';
+  }
+
+  /* Scroll reveal */
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:.07});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  /* Star field — box-shadow technique */
+  (function(){
+    function rnd(min,max){return Math.floor(Math.random()*(max-min)+min);}
+    const W=window.innerWidth||1600, H=window.innerHeight||900;
+    let shadows=[];
+    for(let i=0;i<260;i++){
+      shadows.push(`${rnd(0,W)}px ${rnd(0,H)}px ${i%5===0?'2px':'1px'} rgba(255,255,255,${(Math.random()*.55+.15).toFixed(2)})`);
+    }
+    const stars=document.getElementById('hero-stars');
+    if(stars) stars.style.boxShadow=shadows.join(',');
+
+    /* Twinkling foreground stars */
+    const hero=document.getElementById('hero');
+    if(!hero) return;
+    for(let i=0;i<28;i++){
+      const s=document.createElement('div');
+      const sz=Math.random()<.2?3:Math.random()<.5?2:1.5;
+      s.style.cssText=`position:absolute;border-radius:50%;pointer-events:none;z-index:1;`
+        +`width:${sz}px;height:${sz}px;background:rgba(255,255,255,${(Math.random()*.7+.3).toFixed(2)});`
+        +`top:${rnd(2,88)}%;left:${rnd(2,60)}%;`
+        +`animation:star-twinkle ${(Math.random()*3+2).toFixed(1)}s ease-in-out ${(Math.random()*4).toFixed(1)}s infinite;`;
+      hero.appendChild(s);
+    }
+  })();
+</script>
+</body>
+</html>
