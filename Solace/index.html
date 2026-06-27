@@ -336,38 +336,86 @@
     .rv-scale.vis{opacity:1;transform:none;}
     .d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
 
-    /* RESPONSIVE */
+    /* RESPONSIVE — tablet */
     @media(max-width:1024px){
       nav{padding:0 1.5rem;}
       .n-links{gap:1.25rem;}
-      .n-links li:nth-child(3),.n-links li:nth-child(4){display:none;}
-      .hero-inner{padding:0 2rem 3.5rem;}
-      #categories,.sec-head,.prod-section{padding-left:0;padding-right:0;}
-      .cat-grid{grid-template-columns:repeat(2,1fr);}
-      .prod-grid{padding:1px 1.5rem 3rem;}
-      .prod-grid{grid-template-columns:repeat(3,1fr);}
-      #statement{padding:5rem 2rem;}
-      .stmt-body{grid-template-columns:1fr;}
-      #feature{grid-template-columns:1fr;}
-      .feat-img{aspect-ratio:4/3;max-height:340px;}
-      .feat-img img{height:100%;}
-      .feat-body{padding:3.5rem 2rem;}
-      #about{grid-template-columns:1fr;padding:4.5rem 2rem;gap:3rem;}
-      .about-img{aspect-ratio:16/9;}
-      #newsletter{grid-template-columns:1fr;padding:4.5rem 2rem;gap:2.5rem;}
+      .n-links li:nth-child(3){display:none;}
+      .hero-inner{padding:0 2rem 3rem;}
+      .hero-logo{width:clamp(320px,75vw,987px);}
+      .shop-hd{padding:2.5rem 2rem 1.75rem;}
+      .shop-grid{grid-template-columns:repeat(2,1fr);}
+      #newsletter{grid-template-columns:1fr;padding:4rem 2rem;gap:2.5rem;}
       .footer-top{grid-template-columns:1fr 1fr;gap:2rem;padding:3rem 2rem 2.5rem;}
       .footer-bot{padding:1.5rem 2rem;}
-      .sec-head{padding:3rem 1.5rem 2rem;}
     }
+
+    /* RESPONSIVE — mobile */
     @media(max-width:768px){
+      /* Nav */
+      nav{padding:0 1rem;height:54px;}
       .n-links{display:none;}
       .n-tog{display:flex;}
-      .hero-h1{font-size:18vw;}
-      .hero-h2{font-size:10vw;}
-      .cat-grid{grid-template-columns:1fr 1fr;}
-      .prod-grid{grid-template-columns:1fr 1fr;gap:1px;}
-      .footer-top{grid-template-columns:1fr;}
-      .stmt-stats{gap:2rem;}
+      .n-ig .n-ig-label{display:none;}
+      .n-ig{padding:.4rem .55rem !important;gap:0;}
+      .n-ig svg{display:block !important;width:18px;height:18px;}
+      .n-icon{padding:.45rem;}
+
+      /* Hero */
+      #hero{min-height:100svh;}
+      .hero-logo-wrap{padding:1.5rem 0 .5rem 1rem;}
+      .hero-logo{width:clamp(220px,88vw,500px);}
+      .hero-inner{padding:0 1.25rem 2.5rem;}
+      .hero-meta{font-size:.48rem;gap:.5rem;flex-wrap:wrap;}
+      .hero-bottom{flex-direction:column;align-items:flex-start;gap:1rem;margin-top:1.25rem;}
+      .hero-sub{font-size:.62rem;}
+      .hero-btns{width:100%;flex-direction:column;gap:.5rem;}
+      .hero-btns .btn{width:100%;justify-content:center;padding:.85rem 1.5rem;}
+      .planet-wrap{right:-8%;top:28%;transform:translateY(0);}
+      .planet-orb{width:clamp(90px,28vw,160px);height:clamp(90px,28vw,160px);}
+      .orb1,.orb2,.ch-wrap,.grid-accent{display:none;}
+
+      /* Shop */
+      .shop-hd{padding:1.75rem 1.25rem 1.25rem;flex-direction:column;gap:.5rem;}
+      .shop-hd-left{flex-direction:column;gap:.25rem;}
+      .shop-grid{grid-template-columns:1fr;}
+      .shop-qadd{opacity:1 !important;transform:none !important;}
+      .shop-body{padding:1rem 1.25rem 1.5rem;}
+
+      /* Cart drawer */
+      .cart-drawer{width:100vw;}
+      .cart-dr-head{padding:1.25rem 1.25rem;}
+      .cart-dr-body{padding:1rem 1.25rem;}
+      .cart-dr-foot{padding:1.25rem 1.25rem;}
+
+      /* Newsletter */
+      #newsletter{padding:3.5rem 1.25rem;gap:2rem;}
+      .nl-h{font-size:clamp(3rem,14vw,5rem);}
+      .nl-row{flex-direction:column;}
+      .nl-input{padding:1.1rem 1.25rem;}
+      .nl-btn{width:100%;padding:1.1rem;text-align:center;}
+
+      /* Footer */
+      .footer-top{grid-template-columns:1fr;padding:2.5rem 1.25rem 2rem;gap:2rem;}
+      .footer-bot{flex-direction:column;align-items:flex-start;padding:1.25rem 1.25rem;gap:.75rem;}
+
+      /* Mobile menu */
+      .mob-menu{padding:4.5rem 1.5rem 2.5rem;}
+      .mob-menu a{font-size:2.2rem;}
+
+      /* Reduce side-slide animations to fade-up on mobile */
+      .rv-l{transform:translateY(24px);}
+      .rv-r{transform:translateY(24px);}
+      .rv-l.vis,.rv-r.vis{transform:none;}
+    }
+
+    /* RESPONSIVE — small phones */
+    @media(max-width:420px){
+      .n-logo{font-size:1.35rem;}
+      .hero-logo{width:92vw;}
+      .planet-wrap{display:none;}
+      .shop-grid{grid-template-columns:1fr;}
+      .hero-btns .btn-ghost{display:none;}
     }
   </style>
 </head>
@@ -402,7 +450,7 @@
   <div class="n-right">
     <a class="n-ig" href="https://www.instagram.com/solace.apperal?igsh=MWZlMGl0Z3diaG83cg%3D%3D&utm_source=qr" target="_blank" rel="noopener">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      @solace.apperal
+      <span class="n-ig-label">@solace.apperal</span>
     </a>
     <button class="n-icon" aria-label="Search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
