@@ -70,6 +70,7 @@
     .neb-2{width:650px;height:650px;background:radial-gradient(circle,rgba(25,55,210,.18) 0%,rgba(15,35,160,.08) 45%,transparent 70%);filter:blur(85px);bottom:-200px;left:-60px;}
     .neb-3{width:550px;height:550px;background:radial-gradient(circle,rgba(200,35,120,.12) 0%,transparent 65%);filter:blur(75px);top:25%;left:18%;}
     .neb-4{width:380px;height:380px;background:radial-gradient(circle,rgba(10,170,210,.09) 0%,transparent 65%);filter:blur(60px);top:8%;left:42%;}
+    .neb-5{width:900px;height:700px;background:radial-gradient(circle,rgba(90,25,180,.32) 0%,rgba(55,12,140,.18) 35%,rgba(20,5,80,.08) 60%,transparent 75%);filter:blur(80px);top:5%;left:-10%;}
     /* PLANET */
     .planet-wrap{position:absolute;right:3%;top:50%;transform:translateY(-50%);z-index:6;pointer-events:none;}
     .planet-float{animation:planet-float 9s ease-in-out infinite;}
@@ -111,7 +112,7 @@
     .hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,22rem);line-height:.88;letter-spacing:.02em;color:var(--white);display:block;margin-bottom:-.25rem;text-shadow:0 0 80px rgba(191,95,255,.2),0 0 180px rgba(140,60,255,.12);}
     /* LOGO */
     .hero-logo-wrap{display:flex;justify-content:flex-start;align-items:center;padding:3rem 0 1rem 2rem;position:relative;z-index:4;}
-    .hero-logo{width:clamp(560px,80vw,987px);opacity:.95;filter:invert(1);mix-blend-mode:screen;image-rendering:high-quality;-webkit-mask-image:radial-gradient(ellipse 88% 78% at 44% 50%,#000 48%,rgba(0,0,0,.92) 62%,rgba(0,0,0,.45) 78%,transparent 92%);mask-image:radial-gradient(ellipse 88% 78% at 44% 50%,#000 48%,rgba(0,0,0,.92) 62%,rgba(0,0,0,.45) 78%,transparent 92%);animation:logo-enter 1.3s cubic-bezier(.16,1,.3,1) .1s both,logo-float 8s ease-in-out 1.5s infinite;will-change:transform;}
+    .hero-logo{width:clamp(560px,80vw,987px);opacity:.96;filter:contrast(4) invert(1);mix-blend-mode:screen;image-rendering:high-quality;-webkit-mask-image:radial-gradient(ellipse 92% 82% at 44% 50%,#000 55%,rgba(0,0,0,.88) 70%,rgba(0,0,0,.3) 84%,transparent 96%);mask-image:radial-gradient(ellipse 92% 82% at 44% 50%,#000 55%,rgba(0,0,0,.88) 70%,rgba(0,0,0,.3) 84%,transparent 96%);animation:logo-enter 1.3s cubic-bezier(.16,1,.3,1) .1s both,logo-float 8s ease-in-out 1.5s infinite;will-change:transform;}
     @keyframes logo-enter{from{opacity:0;transform:scale(.88) translateY(20px);}to{opacity:1;transform:none;}}
     @keyframes logo-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
     /* Hero entrance animations */
@@ -416,6 +417,7 @@
   <div class="nebula neb-2"></div>
   <div class="nebula neb-3"></div>
   <div class="nebula neb-4"></div>
+  <div class="nebula neb-5"></div>
   <!-- Planet -->
   <div class="planet-wrap" id="planetWrap">
     <div class="planet-float">
